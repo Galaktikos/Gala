@@ -40,7 +40,7 @@ exports.run = function (message, client) { // Command
         if (!file.parameter) {
             file.run(message, client); // Run command
         } else {
-            for (let b = 0; b < parameter.length; b++) {
+            for (let b = 0; b < file.parameter.length; b++) {
                 if (file.parameter[b] == 'command') {
                     if (message.content[num]) {
                         fs.readdir(command, function(err, subCommands) {
