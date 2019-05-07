@@ -56,6 +56,8 @@ exports.run = function (message, client) { // Command
                                 }
                             }
                         });
+                    } else {
+                        
                     }
                 } else if (file.parameter[b] == 'hex') {
                     const re = /[0-9A-Fa-f]{6}/g; // Test String
