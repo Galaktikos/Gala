@@ -77,4 +77,4 @@ exports.run = function (message, client) { // Command
             }
         }
     }
-}
+};
