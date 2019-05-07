@@ -29,10 +29,10 @@ exports.run = function (message, client) { // Command
     });
 
     function check(items, num) {
-        let command = './Commands'
+        let command = './Commands';
 
         for (let a = 0; a < items.length; a++) {
-            command += '/'+items[a]
+            command += '/'+items[a];
         }
 
         const file = require(command+'/main.js'); // Get file
@@ -42,37 +42,38 @@ exports.run = function (message, client) { // Command
         } else {
             for (let b = 0; b < parameter.length; b++) {
                 if (file.parameter[b] == 'command') {
-                if (message.content[num]) {
-                    fs.readdir(command, function(err, subCommands) {
-                        if(err) console.log('error', err); // Log error
+                    if (message.content[num]) {
+                        fs.readdir(command, function(err, subCommands) {
+                            if(err) console.log('error', err); // Log error
 
-                        for (let a = 0; a < subCommands.length; a++) {
-                            if (subCommands[a] == message.content[num]) {
-                                items.push(subCommands[a]);
-                                check(items, num+1);
-                                a = subCommands.length;
-                            } else if (a+1 == subCommands.length) {
-                                functions.write(message, 'error', 'Subcommand not found, please use `Gala ' + command.replace('./Commands/' + items[0] + '/', '').replace('/', ' ') + '` for commands.'); // Send error message
+                            for (let a = 0; a < subCommands.length; a++) {
+                                if (subCommands[a] == message.content[num]) {
+                                    items.push(subCommands[a]);
+                                    check(items, num+1);
+                                    a = subCommands.length;
+                                } else if (a+1 == subCommands.length) {
+                                    functions.write(message, 'error', 'Subcommand not found, please use `Gala ' + command.replace('./Commands/' + items[0] + '/', '').replace('/', ' ') + '` for commands.'); // Send error message
+                                }
                             }
-                        }
-                    });
-                }
-            } else if (file.parameter[b] == 'hex') {
-                const re = /[0-9A-Fa-f]{6}/g; // Test String
-                message.content[num] = message.content[num].replace('#', ''); // Take off #
+                        });
+                    }
+                } else if (file.parameter[b] == 'hex') {
+                    const re = /[0-9A-Fa-f]{6}/g; // Test String
+                    message.content[num] = message.content[num].replace('#', ''); // Take off #
 
-                if (re.test(message.content[num]) && message.content[num].length == 6) { // Check if valid hex
-                    file.run(message, message.content[num]); // Run command
-                } else {
-                    functions.write(message, 'error', 'Invalid hex code.'); // Write error
-                }
-            } else if (file.parameter[b] == 'mention') {
-                const member = message.content[num].mentions.members.first(); // Get first mention
+                    if (re.test(message.content[num]) && message.content[num].length == 6) { // Check if valid hex
+                        file.run(message, message.content[num]); // Run command
+                    } else {
+                        functions.write(message, 'error', 'Invalid hex code.'); // Write error
+                    }
+                } else if (file.parameter[b] == 'mention') {
+                    const member = message.content[num].mentions.members.first(); // Get first mention
 
-                if (member !== undefined) { // Check if mention exists
-                    file.run(message, message.content[num]); // Run command
-                } else {
-                    functions.write(message, 'error', 'Person not found.'); // Write error
+                    if (member !== undefined) { // Check if mention exists
+                        file.run(message, message.content[num]); // Run command
+                    } else {
+                        functions.write(message, 'error', 'Person not found.'); // Write error
+                    }
                 }
             }
         }
