@@ -32,4 +32,4 @@ client.on('message', (message) => { // On message
 });
 
 // Login
-client.login('NTYxOTk3NTM5NDAyODQyMTMy.XM3F6A.JW6cOzAHbGKy5h2vG1e0_fKFd9s');
+client.login(process.env.BOT_TOKENN);
