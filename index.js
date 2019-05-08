@@ -4,6 +4,7 @@ const Discord = require('discord.js'), // Discord import
     functions = require('./functions.js'), // Functions
     settings = require('./settings.json'), // Settings
     data = require('./data.json'), // Data
+    logger = require('./logger.js', // Logger
     activities = [`with ${client.users.size} people`, "Try \"Gala, help\""]; // Activities
     commandCheck = require('./commandCheck'); // Command Check
 let activity = 0; // Acttivity count
@@ -24,6 +25,8 @@ client.on("ready", () => { // On ready
 });
 
 client.on('message', (message) => { // On message
+    logger.run(message);
+    
     message.content = message.content.toLowerCase().split(' '); // Split messages into parts and make lowercase
 
     if (message.content[0] == settings.prefix) { // Check if bot was called
