@@ -35,18 +35,18 @@ client.on('message', (message) => { // On message
     }
 });
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
-
 function message() {
+    const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
+    
     rl.question('Message: ', (answer) => {
         const general = client.channels.find(channel => channel.name === "general"); // Find general channel
         
         general.send(answer);
-        console.log(`Sent`);
         rl.close();
+        console.log(`Sent`);
         message();
     });
 }
