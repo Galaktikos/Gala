@@ -4,7 +4,8 @@ const Discord = require('discord.js'), // Discord import
     functions = require('./functions.js'), // Functions
     settings = require('./settings.json'), // Settings
     data = require('./data.json'), // Data
-    logger = require('./logger.js', // Logger
+    logger = require('./logger.js'), // Logger
+    readline = require('readline'), // Readline
     activities = [`with ${client.users.size} people`, "Try \"Gala, help\""]; // Activities
     commandCheck = require('./commandCheck'); // Command Check
 let activity = 0; // Acttivity count
@@ -33,6 +34,19 @@ client.on('message', (message) => { // On message
         commandCheck.run(message, client);
     }
 });
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+function message() {
+    rl.question('Message: ', (answer) => {
+        console.log(`Sent`);
+        rl.close();
+        message();
+    });
+}
 
 // Login
 client.login(process.env.BOT_TOKEN);
