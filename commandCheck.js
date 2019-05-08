@@ -60,21 +60,39 @@ exports.run = function (message, client) { // Command
                         
                     }
                 } else if (file.parameter[b] == 'hex') {
-                    const re = /[0-9A-Fa-f]{6}/g; // Test String
-                    message.content[num] = message.content[num].replace('#', ''); // Take off #
+                    if (message.content[num]) {
+                        const re = /[0-9A-Fa-f]{6}/g; // Test String
+                        message.content[num] = message.content[num].replace('#', ''); // Take off #
 
-                    if (re.test(message.content[num]) && message.content[num].length == 6) { // Check if valid hex
-                        file.run(message, message.content[num]); // Run command
+                        if (re.test(message.content[num]) && message.content[num].length == 6) { // Check if valid hex
+                            file.run(message, client); // Run command
+                        } else {
+                            functions.write(message, 'error', 'Invalid hex code.'); // Write error
+                        }
                     } else {
-                        functions.write(message, 'error', 'Invalid hex code.'); // Write error
+                        
                     }
                 } else if (file.parameter[b] == 'mention') {
-                    const member = message.content[num].mentions.members.first(); // Get first mention
+                    if (message.content[num]) {
+                        if (message.content[num].startsWith('<@') && message.content[num].endsWith('>')) {
+                            message.content[num] = message.content[num].slice(2, -1);
+                    
+                            if (message.content[num].startsWith('!')) {
+                                message.content[num] = message.content[num].slice(1);
+                            }
 
-                    if (member !== undefined) { // Check if mention exists
-                        file.run(message, message.content[num]); // Run command
+                            const member = client.users.get(message.content[num]); // Get first mention
+
+                            if (member !== undefined) { // Check if mention exists
+                                file.run(message, client); // Run command
+                            } else {
+                                functions.write(message, 'error', 'Person not found.'); // Write error
+                            }
+                        } else {
+                            console.log(message.content[num])
+                        }
                     } else {
-                        functions.write(message, 'error', 'Person not found.'); // Write error
+                            
                     }
                 }
             }

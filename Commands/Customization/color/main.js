@@ -1,3 +1,3 @@
-exports.about = 'Change theme color'; // About
+exports.about = 'Manage theme color'; // About
 
 exports.parameter = ['command']; // Parameter
