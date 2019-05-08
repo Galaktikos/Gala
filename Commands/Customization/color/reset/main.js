@@ -11,9 +11,11 @@ exports.run = function (message, color) {
             if (obj.users[a].id == message.author.id) { // Check if id matches author
                 obj.users[a].name = message.author.username; // Update name
                 obj.users[a].color = undefined; // Set color value
-                functions.write(message, 'sucess', 'Your color is now set to ' + parseInt(message.content[3], 16), obj);
+                functions.write(message, 'sucess', 'Your color has been reset.', obj);
 
                 a = obj.users.length; // Stop loop
+            } else if (a+1 == obj.users.length) {
+                functions.write(message, 'error', 'You already have the default colors!', obj);
             }
         }
 
@@ -25,5 +27,3 @@ exports.run = function (message, color) {
 }
 
 exports.about = 'Reset theme color.'; // About
-
-exports.parameter = []; // Paramaters

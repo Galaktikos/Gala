@@ -5,5 +5,3 @@ exports.run = function (message) { // Command
 }
 
 exports.about = 'Pong!'; // About
-
-exports.parameter = []; // Parameter
