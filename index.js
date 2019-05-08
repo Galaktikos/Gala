@@ -35,6 +35,7 @@ client.on('message', (message) => { // On message
     }
 });
 
+const general = client.channels.find(channel => channel.name === "general"); // Find general channel
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
@@ -43,10 +44,13 @@ const rl = readline.createInterface({
 function message() {
     rl.question('Message: ', (answer) => {
         console.log(`Sent`);
+        general.send(answer);
         rl.close();
         message();
     });
 }
+
+message();
 
 // Login
 client.login(process.env.BOT_TOKEN);
