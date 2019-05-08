@@ -41,7 +41,7 @@ function message() {
         output: process.stdout
     });
     
-    rl.question('Message: ', (answer) => {
+    rl.question('', (answer) => {
         const general = client.channels.find(channel => channel.name === "general"); // Find general channel
         
         general.send(answer);
