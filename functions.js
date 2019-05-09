@@ -89,7 +89,7 @@ exports.reactWrite = function (message, color, text, items, client, obj) { // Cr
         let emojis = [];
 
         for (let a = 0; a < items.length; a++) {
-            emojis.push(client.emojis.find(emoji => emoji.name === items[a].emoji));
+            emojis.push(items[a].emoji);
         }
 
         const filter = (reaction, user) => {
@@ -101,9 +101,7 @@ exports.reactWrite = function (message, color, text, items, client, obj) { // Cr
             let collector = m.createReactionCollector(filter, { time: 5000 });
 
             collector.on('collect', (reaction, collector) => {
-                for (let a = 0; a < emojis.length; a++) {
-                    message.react(emojis[a]);
-                }
+                
             });
             
             collector.on('end', collected => {
@@ -112,8 +110,7 @@ exports.reactWrite = function (message, color, text, items, client, obj) { // Cr
         });
 
         for (let a = 0; a < emojis.length; a++) {
-            console.log(emojis[a]);
-            message.react(emojis[a]);
+            message.react(client.emojis.find(emoji => emoji.name === emojis[a]));
         }
     }
 }
