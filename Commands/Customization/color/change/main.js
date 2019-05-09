@@ -29,4 +29,4 @@ exports.about = 'Change theme color.'; // About
 
 exports.parameter = ['hex']; // Paramaters
 
-exports.emoji = 'pencil';
+exports.emoji = '📝';

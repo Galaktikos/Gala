@@ -28,4 +28,4 @@ exports.run = function (message, color) {
 
 exports.about = 'Reset theme color.'; // About
 
-exports.emoji = 'leftwards_arrow_with_hook';
+exports.emoji = '↩';

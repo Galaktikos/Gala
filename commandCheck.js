@@ -58,16 +58,16 @@ exports.run = function (message, client) { // Command
                                 }
                             }
                         } else {
-                            let items = [];
+                            let emojis = [];
                             let text = '';
 
                             for (let a = 0; a < subCommands.length; a++) {
                                 const file = require(command + '/' + subCommands[a] + '/main.js');
-                                items.push({'name': subCommands, 'emoji': file.emoji});
+                                emojis.push({'name': subCommands[a], 'emoji': file.emoji});
                                 text += file.emoji + subCommands[a] + '\n';
                             }
 
-                            functions.reactWrite(message, 'sucess', text, items, client);
+                            functions.reactWrite(message, 'sucess', text, emojis, items);
                         }
                     });
                 } else if (file.parameter[b] == 'hex') {
@@ -81,7 +81,7 @@ exports.run = function (message, client) { // Command
                             functions.write(message, 'error', 'Invalid hex code.'); // Write error
                         }
                     } else {
-                        
+                        console.log("");
                     }
                 } else if (file.parameter[b] == 'mention') {
                     if (message.content[num]) {

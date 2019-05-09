@@ -1,5 +1,6 @@
 const Discord = require('discord.js'), // Discord client
-    fs = require('fs'); // File system
+    fs = require('fs'), // File system
+    commandCheck = require('./commandCheck.js'); // Command Check
 
 const colors = { // Colors
     'sucess': 65280,
@@ -54,7 +55,7 @@ exports.botWrite = function (channel, color, text, client) {
     channel.send(embed); // Send embed
 }
 
-exports.reactWrite = function (message, color, text, items, client, obj) { // Create and send an embed
+exports.reactWrite = async (message, color, text, items, comItems, client, obj) => { // Create and send an embed
     if (!obj) {
         fs.readFile('./data.json', 'utf8', function readFileCallback (err, data) { // Read file
             obj = JSON.parse(data); // Convert to list
@@ -79,7 +80,7 @@ exports.reactWrite = function (message, color, text, items, client, obj) { // Cr
         send();
     }
 
-    function send () { // Generate message
+    async function send () { // Generate message
         const embed = new Discord.RichEmbed() // Create embed
             .setColor(colors[color])
             .setTitle(text)
@@ -92,26 +93,20 @@ exports.reactWrite = function (message, color, text, items, client, obj) { // Cr
             emojis.push(items[a].emoji);
         }
 
-        const filter = (reaction, user) => {
-            return emojis.includes(reaction.emoji.name) && user.id === message.author.id;
-        };
-
-        message.channel.send(embed).then(mes => {
+        message.channel.send(embed).then(async mes => {
 			for (let a = 0; a < emojis.length; a++) {
-		    	const emoji = message.guild.emojis.find('name', 'ayy');
-		    	mes.react(emoji);
-			}
-		}).then(m => { // Send embed
+		    	await mes.react(items[a].emoji);
+            }
 
-            let collector = m.createReactionCollector(filter, { time: 60000 });
-
-            collector.on('collect', (reaction, collector) => {
-                
-            });
-            
-            collector.on('end', collected => {
-                write(message, 'error', 'Timed out');
-            });
+            await mes.awaitReactions((reaction, user) => {
+                for (let a = 0; a < items.length; a++) {
+                    if (reaction.emoji.name === items[a].emoji && user.id == message.author.id) {
+                        message.content.comItems.push(comItemsitems[a].name.shift());
+                        commandCheck.run(message, client);
+                        mes.delete();
+                    }
+                }
+            }, {time: 60000});
         });
     }
 }
