@@ -101,7 +101,7 @@ exports.reactWrite = async (message, color, text, items, comItems, client, obj) 
             await mes.awaitReactions((reaction, user) => {
                 for (let a = 0; a < items.length; a++) {
                     if (reaction.emoji.name === items[a].emoji && user.id == message.author.id) {
-                        message.content.push(items.name);
+                        message.content.push(items[a].name);
 						console.log(message.content);
                         commandCheck.run(message, client);
                         mes.delete();
