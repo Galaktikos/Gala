@@ -98,7 +98,7 @@ exports.reactWrite = function (message, color, text, items, obj) { // Create and
 
         message.channel.send(embed).then(m => { // Send embed
 
-            m.createReactionCollector(filter, { time: 5000 });
+            let collector = m.createReactionCollector(filter, { time: 5000 });
 
             collector.on('collect', (reaction, collector) => {
                 for (let a = 0; a < emojis.length; a++) {
