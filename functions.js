@@ -54,7 +54,7 @@ exports.botWrite = function (channel, color, text, client) {
     channel.send(embed); // Send embed
 }
 
-exports.reactWrite = function (message, color, text, items, obj) { // Create and send an embed
+exports.reactWrite = function (message, color, text, items, client, obj) { // Create and send an embed
     if (!obj) {
         fs.readFile('./data.json', 'utf8', function readFileCallback (err, data) { // Read file
             obj = JSON.parse(data); // Convert to list
