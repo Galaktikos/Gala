@@ -104,12 +104,11 @@ exports.reactWrite = function (message, color, text, items, obj) { // Create and
                 for (let a = 0; a < emojis.length; a++) {
                     message.react(emojis[a]);
                 }
-
             });
-        });
-
-        collector.on('end', collected => {
-            write(message, 'error', 'Timed out');
+            
+            collector.on('end', collected => {
+                write(message, 'error', 'Timed out');
+            });
         });
 
         for (let a = 0; a < emojis.length; a++) {
