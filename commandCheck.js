@@ -64,7 +64,7 @@ exports.run = function (message, client) { // Command
                             for (let a = 0; a < subCommands.length; a++) {
                                 const file = require(command + '/' + subCommands[a] + '/main.js');
                                 items.push({'name': subCommands, 'emoji': file.emoji});
-                                text += file.emoji + subCommands + '\n';
+                                text += file.emoji + subCommands[a] + '\n';
                             }
 
                             functions.reactWrite(message, 'sucess', text, items);
