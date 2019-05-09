@@ -96,7 +96,7 @@ exports.reactWrite = function (message, color, text, items, client, obj) { // Cr
             return emojis.includes(reaction.emoji.name) && user.id === message.author.id;
         };
 
-        message.channel.send(embed).then(m => { // Send embed
+        let sentEmbed =message.channel.send(embed).then(m => { // Send embed
 
             let collector = m.createReactionCollector(filter, { time: 5000 });
 
@@ -111,7 +111,7 @@ exports.reactWrite = function (message, color, text, items, client, obj) { // Cr
 
         for (let a = 0; a < emojis.length; a++) {
             const emoji = message.guild.emojis.find('name', 'ayy');
-	        embed.react(emoji);
+	    sentEmbed.react(emoji);
         }
     }
 }
