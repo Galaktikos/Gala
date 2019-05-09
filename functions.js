@@ -89,7 +89,7 @@ exports.reactWrite = function (message, color, text, items, obj) { // Create and
         let emojis = [];
 
         for (let a = 0; a < items.length; a++) {
-            emojis.push(items.emoji);
+            emojis.push(items[a].emoji);
         }
 
         const filter = (reaction, user) => {
