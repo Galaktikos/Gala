@@ -51,6 +51,8 @@ function message() {
     });
 }
 
+console.log(client.emojis);
+
 message();
 
 // Login
