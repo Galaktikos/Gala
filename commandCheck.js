@@ -67,7 +67,7 @@ exports.run = function (message, client) { // Command
                                 text += file.emoji + subCommands[a] + '\n';
                             }
 
-                            functions.reactWrite(message, 'sucess', text, items);
+                            functions.reactWrite(message, 'sucess', text, items, client);
                         }
                     });
                 } else if (file.parameter[b] == 'hex') {
