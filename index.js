@@ -51,10 +51,6 @@ function message() {
     });
 }
 
-for(let a = 0; a < client.emojis.length; a++) {
-console.log(client.emojis[a]);
-}
-
 message();
 
 // Login
