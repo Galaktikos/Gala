@@ -110,7 +110,7 @@ exports.reactWrite = function (message, color, text, items, client, obj) { // Cr
         });
 
         for (let a = 0; a < emojis.length; a++) {
-            message.react(client.emojis.find(emoji => emoji.name === "pencil"));
+            message.react(client.emojis.find(emoji => emoji.name === "pencil2"));
         }
     }
 }
