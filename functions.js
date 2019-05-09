@@ -112,6 +112,7 @@ exports.reactWrite = function (message, color, text, items, obj) { // Create and
         });
 
         for (let a = 0; a < emojis.length; a++) {
+            console.log(emojis[a]);
             message.react(emojis[a]);
         }
     }
