@@ -96,9 +96,14 @@ exports.reactWrite = function (message, color, text, items, client, obj) { // Cr
             return emojis.includes(reaction.emoji.name) && user.id === message.author.id;
         };
 
-        let sentEmbed =message.channel.send(embed).then(m => { // Send embed
+        message.channel.send(embed).then(mes => {
+			for (let a = 0; a < emojis.length; a++) {
+		    	const emoji = message.guild.emojis.find('name', 'ayy');
+		    	mes.react(emoji);
+			}
+		}).then(m => { // Send embed
 
-            let collector = m.createReactionCollector(filter, { time: 5000 });
+            let collector = m.createReactionCollector(filter, { time: 60000 });
 
             collector.on('collect', (reaction, collector) => {
                 
@@ -108,10 +113,5 @@ exports.reactWrite = function (message, color, text, items, client, obj) { // Cr
                 write(message, 'error', 'Timed out');
             });
         });
-
-        for (let a = 0; a < emojis.length; a++) {
-            const emoji = message.guild.emojis.find('name', 'ayy');
-	    sentEmbed.react(emoji);
-        }
     }
 }
