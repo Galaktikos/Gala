@@ -31,3 +31,5 @@ exports.run = function (message, client) { // Command
 exports.about = "View you or other people's thiccness."; // About
 
 exports.parameter = ['mention']; // Parameter
+
+exports.emoji = '🔎';

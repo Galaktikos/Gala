@@ -12,7 +12,7 @@ exports.run = function (message, client) { // Command
 
         for (let a = 0; a < obj.users.length; a++) { // Check if id matches author
             if (obj.users[a].id == member.id) {
-                let val = Math.round(Math.random()*(obj.users[a].value/3+2)-(obj.users[a].value/8+1)); // Add or subtract randomly
+                let val = Math.round(Math.random()*(obj.users[a].value/3+2)-(obj.users[a].value/6.5+1)); // Add or subtract randomly
                 obj.users[a].value += val; // Apply thiccness
                 obj.users[a].name = member.name; // Update name
                 functions.write(message, 'sucess', 'You judge ' + member.username + "'s thiccness. They " + (val < 0 ? 'are hurt by your judgement and loose ' : 'value your judgement and gain ') + val + '% thiccness. ' + member.username + ' is now ' + obj.users[a].value + '% thicc!', obj); // Send output
@@ -33,3 +33,5 @@ exports.run = function (message, client) { // Command
 exports.about = "Judge you or other people's thiccness."; // About
 
 exports.parameter = ['mention']; // Parameter
+
+exports.emoji = '👨‍⚖️';

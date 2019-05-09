@@ -10,10 +10,10 @@ const Discord = require('discord.js'), // Discord import
     commandCheck = require('./commandCheck'); // Command Check
 let activity = 0; // Acttivity count
 
-client.on("ready", () => { // On ready
+client.on('ready', () => { // On ready
     const general = client.channels.find(channel => channel.name === "general"); // Find general channel
 
-    functions.botWrite(general, 'neutral', "I'm ready!", client); // Startup message
+    functions.botWrite(general, 'neutral', 'Bot ready!', client); // Startup message
 
     setInterval(function() { // Activity loop
         if (activity >= activities.length) { // Check if activity value is greater than amount of activities
@@ -54,4 +54,5 @@ function message() {
 message();
 
 // Login
-client.login(process.env.BOT_TOKEN);
+//client.login(process.env.BOT_TOKEN);
+client.login('NTYxOTk3NTM5NDAyODQyMTMy.XNHz8w.Rdi35q4-Z1FD7O-XM76K4MS4e7o');

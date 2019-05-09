@@ -39,19 +39,17 @@ exports.run = function (message, client) { // Command
 
         if (!file.parameter) {
             file.run(message, client); // Run command
-            
         } else {
             for (let b = 0; b < file.parameter.length; b++) {
                 if (file.parameter[b] == 'command') {
-                    if (message.content[num]) {
-                        fs.readdir(command, function(err, subCommands) {
-                            if(err) console.log('error', err); // Log error
-                            
-                            subCommands = subCommands.filter(function(ele){return ele != 'main.js'});
-                            
+                    fs.readdir(command, function(err, subCommands) {
+                        if(err) console.log('error', err); // Log error
+                        
+                        subCommands = subCommands.filter(function(ele){return ele != 'main.js'});
+
+                        if (message.content[num]) {                
                             for (let a = 0; a < subCommands.length; a++) {
                                 if (subCommands[a] == message.content[num]) {
-                                    console.log (subCommands[a], message.content[num]);
                                     items.push(subCommands[a]);
                                     check(items, num+1);
                                     a = subCommands.length;
@@ -59,10 +57,19 @@ exports.run = function (message, client) { // Command
                                     functions.write(message, 'error', 'Subcommand not found, please use `Gala ' + command.replace('./Commands/' + items[0] + '/', '').replace('/', ' ') + '` for commands.'); // Send error message
                                 }
                             }
-                        });
-                    } else {
-                        
-                    }
+                        } else {
+                            let items = [];
+                            let text = '';
+
+                            for (let a = 0; a < subCommands.length; a++) {
+                                const file = require(command + '/' + subCommands[a] + '/main.js');
+                                items.push({'name': subCommands, 'emoji': file.emoji});
+                                text += file.emoji + subCommands + '\n';
+                            }
+
+                            functions.reactWrite(message, 'sucess', text, items);
+                        }
+                    });
                 } else if (file.parameter[b] == 'hex') {
                     if (message.content[num]) {
                         const re = /[0-9A-Fa-f]{6}/g; // Test String

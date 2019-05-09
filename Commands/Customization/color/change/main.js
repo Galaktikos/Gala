@@ -28,3 +28,5 @@ exports.run = function (message) {
 exports.about = 'Change theme color.'; // About
 
 exports.parameter = ['hex']; // Paramaters
+
+exports.emoji = '✏️';

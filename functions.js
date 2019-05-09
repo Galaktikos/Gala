@@ -43,6 +43,7 @@ exports.write = function (message, color, text, obj) { // Create and send an emb
         message.channel.send(embed); // Send embed
     }
 }
+
 exports.botWrite = function (channel, color, text, client) {
     const embed = new Discord.RichEmbed() // Create embed
         .setColor(colors[color])
@@ -51,4 +52,68 @@ exports.botWrite = function (channel, color, text, client) {
         .setTimestamp();
 
     channel.send(embed); // Send embed
+}
+
+exports.reactWrite = function (message, color, text, items, obj) { // Create and send an embed
+    if (!obj) {
+        fs.readFile('./data.json', 'utf8', function readFileCallback (err, data) { // Read file
+            obj = JSON.parse(data); // Convert to list
+            run();
+        });
+    } else {
+        run();
+    }
+
+    function run() {
+        if (color != 'error') { // Overide if error
+            for (let a = 0; a < obj.users.length; a++) { // Loop through values
+                if (obj.users[a].id == message.author.id) { // Check if id matches author
+                    if (obj.users[a].color != null) { // Check for color preferance
+                        colors.custom = obj.users[a].color; // Set custom color to user preference
+                        color = 'custom'; // Set color to custom
+                    }
+                }
+            }
+        }
+
+        send();
+    }
+
+    function send () { // Generate message
+        const embed = new Discord.RichEmbed() // Create embed
+            .setColor(colors[color])
+            .setTitle(text)
+            .setAuthor(message.author.username, message.author.avatarURL)
+            .setTimestamp();
+
+        let emojis = [];
+
+        for (let a = 0; a < items.length; a++) {
+            emojis.push(items.emoji);
+        }
+
+        const filter = (reaction, user) => {
+            return emojis.includes(reaction.emoji.name) && user.id === message.author.id;
+        };
+
+        message.channel.send(embed).then(m => { // Send embed
+
+            m.createReactionCollector(filter, { time: 5000 });
+
+            collector.on('collect', (reaction, collector) => {
+                for (let a = 0; a < emojis.length; a++) {
+                    message.react(emojis[a]);
+                }
+
+            });
+        });
+
+        collector.on('end', collected => {
+            write(message, 'error', 'Timed out');
+        });
+
+        for (let a = 0; a < emojis.length; a++) {
+            message.react(emojis[a]);
+        }
+    }
 }
