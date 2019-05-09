@@ -110,7 +110,8 @@ exports.reactWrite = function (message, color, text, items, client, obj) { // Cr
         });
 
         for (let a = 0; a < emojis.length; a++) {
-            message.react(client.emojis.find(emoji => emoji.name === "ayy"));
+            const emoji = message.guild.emojis.find('name', 'ayy');
+	        embed.react(emoji);
         }
     }
 }
