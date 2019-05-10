@@ -39,7 +39,7 @@ exports.run = function (message, client) { // Command
             command += '/'+items[a];
         }
         
-        console.log(message.conent, command);
+        console.log(message.content, command);
 
         const file = require(command+'/main.js'); // Get file
 
