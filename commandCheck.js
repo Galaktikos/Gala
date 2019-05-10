@@ -4,35 +4,36 @@ const fs = require('fs'), // File system
 exports.run = function (message, client) { // Command
     let found = false;
 
-    fs.readdir('./Commands', function(err, items) { // Read commands directory
-        items = items.filter(function(ele){return ele != 'main.js'});
-        
-        for (let a = 0; a < items.length; a++) { // Loop through categories
-            fs.readdir('./Commands/'+items[a], function(err, items2) { // Read categories
-                if (message.content[1]) {
-                    for (let b = 0; b < items2.length; b++) { // Loop through commands
-                        if (message.content[1] == items2[b]) { // Check if command matches message
-                            if (items[a] == 'Admin') { // Check if command is for admin
-                                if(message.member.roles.some(r=>data.adminRoles.includes(r.name)) ) { // Check if user has an admin role
-                                    check([items[a], items2[b]], 2);
-                                } else {
-                                    functions.write(message, 'error', 'You need the permission(s) `' + command.permissions().join(', ') + '` to use the command `' + message.content[1] + '.'); // Send denial message
-                                }
-                            } else {
-                                check([items[a], items2[b]], 2);
-                            }
+    if (message.content[1]) {
+        fs.readdir('./Commands', function(err, items) { // Read commands directory
+            items = items.filter(function(ele){return ele != 'main.js'});
 
-                            found = true;
-                        } else if (a+1 == items.length && b+1 == items2.length && !found) {
-                            functions.write(message, 'error', 'Command not found, please use `Gala` for commands.'); // Send error message
+            for (let a = 0; a < items.length; a++) { // Loop through categories
+                fs.readdir('./Commands/'+items[a], function(err, items2) { // Read categories
+                        for (let b = 0; b < items2.length; b++) { // Loop through commands
+                            if (message.content[1] == items2[b]) { // Check if command matches message
+                                if (items[a] == 'Admin') { // Check if command is for admin
+                                    if(message.member.roles.some(r=>data.adminRoles.includes(r.name)) ) { // Check if user has an admin role
+                                        check([items[a], items2[b]], 2);
+                                    } else {
+                                        functions.write(message, 'error', 'You need the permission(s) `' + command.permissions().join(', ') + '` to use the command `' + message.content[1] + '.'); // Send denial message
+                                    }
+                                } else {
+                                    check([items[a], items2[b]], 2);
+                                }
+
+                                found = true;
+                            } else if (a+1 == items.length && b+1 == items2.length && !found) {
+                                functions.write(message, 'error', 'Command not found, please use `Gala` for commands.'); // Send error message
+                            }
                         }
                     }
-                } else {
-                    check([], 1);
-                }
-            });
-        }
-    });
+                });
+            }
+        });
+    } else {
+        check([], 1);
+    }
 
     function check(items, num) {
         let command = './Commands';
