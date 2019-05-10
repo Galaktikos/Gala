@@ -5,9 +5,10 @@ exports.run = function (message, client) { // Command
     let found = false;
 
     fs.readdir('./Commands', function(err, items) { // Read commands directory
+        items = items.filter(function(ele){return ele != 'main.js'});
+        
         for (let a = 0; a < items.length; a++) { // Loop through categories
             fs.readdir('./Commands/'+items[a], function(err, items2) { // Read categories
-                console.log('./Commands/'+items[a]);
                 if (message.content[1]) {
                     for (let b = 0; b < items2.length; b++) { // Loop through commands
                         if (message.content[1] == items2[b]) { // Check if command matches message
