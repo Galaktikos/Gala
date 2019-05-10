@@ -55,12 +55,13 @@ exports.run = function (message, client) { // Command
 
                         if (message.content[num]) {                
                             for (let a = 0; a < subCommands.length; a++) {
-                                if (subCommands[a] == message.content[num]) {
+                                if (subCommands[a] == message.content[num  + b]) {
                                     items.push(subCommands[a]);
-                                    check(items, num+1);
+                                    check(items, num + 1);
                                     a = subCommands.length;
-                                } else if (a+1 == subCommands.length) {
+                                } else if (a + 1 == subCommands.length) {
                                     functions.write(message, 'error', 'Subcommand not found, please use `Gala ' + command.replace('./Commands/' + items[0] + '/', '').replace('/', ' ') + '` for commands.'); // Send error message
+                                    a = file.parameter.length;
                                 }
                             }
                         } else {
@@ -77,39 +78,47 @@ exports.run = function (message, client) { // Command
                         }
                     });
                 } else if (file.parameter[b] == 'hex') {
-                    if (message.content[num]) {
+                    if (message.content[num + b]) {
                         const re = /[0-9A-Fa-f]{6}/g; // Test String
-                        message.content[num] = message.content[num].replace('#', ''); // Take off #
+                        message.content[num + b] = message.content[num + b].replace('#', ''); // Take off #
 
-                        if (re.test(message.content[num]) && message.content[num].length == 6) { // Check if valid hex
+                        if (re.test(message.content[num + b]) && message.content[num + b].length == 6) { // Check if valid hex
                             file.run(message, client); // Run command
                         } else {
                             functions.write(message, 'error', 'Invalid hex code.'); // Write error
+                            a = file.parameter.length;
                         }
                     } else {
                         console.log("");
                     }
                 } else if (file.parameter[b] == 'mention') {
                     if (message.content[num]) {
-                        if (message.content[num].startsWith('<@') && message.content[num].endsWith('>')) {
-                            message.content[num] = message.content[num].slice(2, -1);
+                        if (message.content[num + b].startsWith('<@') && message.content[num + b].endsWith('>')) {
+                            message.content[num + b] = message.content[num + b].slice(2, -1);
                     
-                            if (message.content[num].startsWith('!')) {
-                                message.content[num] = message.content[num].slice(1);
+                            if (message.content[num + b].startsWith('!')) {
+                                message.content[num + b] = message.content[num + b].slice(1);
                             }
 
-                            const member = client.users.get(message.content[num]); // Get first mention
+                            const member = client.users.get(message.content[num + b]); // Get first mention
 
                             if (member !== undefined) { // Check if mention exists
-                                file.run(message, client); // Run command
+                                if (b + 1 == file.parameter.length) {
+                                    file.run(message, client); // Run command
+                                }
                             } else {
                                 functions.write(message, 'error', 'Person not found.'); // Write error
+                                a = file.parameter.length;
                             }
                         } else {
-                            console.log(message.content[num])
+                            console.log(message.content[num + b])
                         }
                     } else {
                             
+                    }
+                } else if (file.parameter[b] == 'number') {
+                    if () {
+                        
                     }
                 }
             }
