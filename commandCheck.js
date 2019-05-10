@@ -8,26 +8,42 @@ exports.run = function (message, client) { // Command
         fs.readdir('./Commands', function(err, items) { // Read commands directory
             items = items.filter(function(ele){return ele != 'main.js'});
 
-            for (let a = 0; a < items.length; a++) { // Loop through categories
-                fs.readdir('./Commands/'+items[a], function(err, items2) { // Read categories
-                    for (let b = 0; b < items2.length; b++) { // Loop through commands
-                        if (message.content[1] == items2[b]) { // Check if command matches message
-                            if (items[a] == 'Admin') { // Check if command is for admin
-                                if(message.member.roles.some(r=>data.adminRoles.includes(r.name)) ) { // Check if user has an admin role
-                                    check([items[a], items2[b]], 2);
+            function commands(num) {
+                for (let a = 0; a < items.length; a++) { // Loop through categories
+                    fs.readdir('./Commands/'+items[a], function(err, items2) { // Read categories
+                        for (let b = 0; b < items2.length; b++) { // Loop through commands
+                            if (message.content[num] == items2[b].toLowerCase()) { // Check if command matches message
+                                if (items[a] == 'Admin') { // Check if command is for admin
+                                    if(message.member.roles.some(r=>data.adminRoles.includes(r.name)) ) { // Check if user has an admin role
+                                        check([items[a], items2[b]], 2);
+                                    } else {
+                                        functions.write(message, 'error', 'You need the permission(s) `' + command.permissions().join(', ') + '` to use the command `' + message.content[num] + '.'); // Send denial message
+                                    }
                                 } else {
-                                    functions.write(message, 'error', 'You need the permission(s) `' + command.permissions().join(', ') + '` to use the command `' + message.content[1] + '.'); // Send denial message
+                                    check([items[a], items2[b]], num + 1);
                                 }
-                            } else {
-                                check([items[a], items2[b]], 2);
-                            }
 
-                            found = true;
-                        } else if (a+1 == items.length && b+1 == items2.length && !found) {
-                            functions.write(message, 'error', 'Command not found, please use `Gala` for commands.'); // Send error message
+                                found = true;
+                            } else if (a + 1 == items.length && b+1 == items2.length && !found) {
+                                functions.write(message, 'error', 'Command not found, please use `Gala` for commands.'); // Send error message
+                            }
                         }
+                    });
+                }
+            }
+
+            for (let a = 0; a < items.length; a++) { // Loop through categories
+                if (message.content[1] == items[a].toLowerCase()) { // Check if command matches message
+                    if (message.content[2]) {
+                        commands(2);
+                    } else {
+                        check([items[a]], 2)
                     }
-                });
+
+                    a == items.length;
+                } else if (a + 1 == items.length) {
+                    commands(1);
+                }
             }
         });
     } else {
@@ -53,7 +69,7 @@ exports.run = function (message, client) { // Command
                         
                         subCommands = subCommands.filter(function(ele){return ele != 'main.js'});
 
-                        if (message.content[num]) {                
+                        if (message.content[num] || message.content[num] == '') {                
                             for (let a = 0; a < subCommands.length; a++) {
                                 if (subCommands[a] == message.content[num  + b]) {
                                     items.push(subCommands[a]);
@@ -78,7 +94,7 @@ exports.run = function (message, client) { // Command
                         }
                     });
                 } else if (file.parameter[b] == 'hex') {
-                    if (message.content[num + b]) {
+                    if (message.content[num + b] || message.content[num + b] == '') {
                         const re = /[0-9A-Fa-f]{6}/g; // Test String
                         message.content[num + b] = message.content[num + b].replace('#', ''); // Take off #
 
@@ -89,10 +105,10 @@ exports.run = function (message, client) { // Command
                             a = file.parameter.length;
                         }
                     } else {
-                        console.log("");
+                        
                     }
                 } else if (file.parameter[b] == 'mention') {
-                    if (message.content[num]) {
+                    if (message.content[num + b] || message.content[num + b] == '') {
                         if (message.content[num + b].startsWith('<@') && message.content[num + b].endsWith('>')) {
                             message.content[num + b] = message.content[num + b].slice(2, -1);
                     
@@ -111,13 +127,13 @@ exports.run = function (message, client) { // Command
                                 a = file.parameter.length;
                             }
                         } else {
-                            console.log(message.content[num + b])
+                            
                         }
                     } else {
                             
                     }
                 } else if (file.parameter[b] == 'number') {
-                    if () {
+                    if (true) {
                         
                     }
                 }

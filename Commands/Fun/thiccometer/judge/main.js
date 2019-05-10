@@ -34,4 +34,4 @@ exports.about = "Judge you or other people's thiccness."; // About
 
 exports.parameter = ['mention']; // Parameter
 
-exports.emoji = '⚖️';
+exports.emoji = '⚖';
