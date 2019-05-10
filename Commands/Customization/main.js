@@ -1,1 +1,1 @@
-exports.emoji = '';
+exports.emoji = '⚙';
