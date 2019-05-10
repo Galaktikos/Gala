@@ -26,7 +26,7 @@ exports.run = function (message, client) { // Command
                         }
                     }
                 } else {
-                    check(items[a], 1);
+                    check([items[a]], 1);
                 }
             });
         }
