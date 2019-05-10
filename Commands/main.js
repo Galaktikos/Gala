@@ -1,0 +1,1 @@
+exports.parameter = ['command']; // Parameter
