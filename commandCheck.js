@@ -10,22 +10,21 @@ exports.run = function (message, client) { // Command
 
             for (let a = 0; a < items.length; a++) { // Loop through categories
                 fs.readdir('./Commands/'+items[a], function(err, items2) { // Read categories
-                        for (let b = 0; b < items2.length; b++) { // Loop through commands
-                            if (message.content[1] == items2[b]) { // Check if command matches message
-                                if (items[a] == 'Admin') { // Check if command is for admin
-                                    if(message.member.roles.some(r=>data.adminRoles.includes(r.name)) ) { // Check if user has an admin role
-                                        check([items[a], items2[b]], 2);
-                                    } else {
-                                        functions.write(message, 'error', 'You need the permission(s) `' + command.permissions().join(', ') + '` to use the command `' + message.content[1] + '.'); // Send denial message
-                                    }
-                                } else {
+                    for (let b = 0; b < items2.length; b++) { // Loop through commands
+                        if (message.content[1] == items2[b]) { // Check if command matches message
+                            if (items[a] == 'Admin') { // Check if command is for admin
+                                if(message.member.roles.some(r=>data.adminRoles.includes(r.name)) ) { // Check if user has an admin role
                                     check([items[a], items2[b]], 2);
+                                } else {
+                                    functions.write(message, 'error', 'You need the permission(s) `' + command.permissions().join(', ') + '` to use the command `' + message.content[1] + '.'); // Send denial message
                                 }
-
-                                found = true;
-                            } else if (a+1 == items.length && b+1 == items2.length && !found) {
-                                functions.write(message, 'error', 'Command not found, please use `Gala` for commands.'); // Send error message
+                            } else {
+                                check([items[a], items2[b]], 2);
                             }
+
+                            found = true;
+                        } else if (a+1 == items.length && b+1 == items2.length && !found) {
+                            functions.write(message, 'error', 'Command not found, please use `Gala` for commands.'); // Send error message
                         }
                     }
                 });
