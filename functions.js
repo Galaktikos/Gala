@@ -52,7 +52,7 @@ exports.botWrite = function (channel, color, text, client) {
         .setAuthor(client.user.username, client.user.avatarURL)
         .setTimestamp();
 
-    channel.send(embed); // Send embed
+    return channel.send(embed); // Send embed
 }
 
 exports.reactWrite = async (message, color, text, items, comItems, client, obj) => { // Create and send an embed

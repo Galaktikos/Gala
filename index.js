@@ -1,9 +1,7 @@
 const Discord = require('discord.js'), // Discord import
     client = new Discord.Client(), // Discord client
-    fs = require('fs'), // File system
     functions = require('./functions.js'), // Functions
     settings = require('./settings.json'), // Settings
-    data = require('./data.json'), // Data
     logger = require('./logger.js'), // Logger
     readline = require('readline'), // Readline
     activities = [`with ${client.users.size} people`, "Try \"Gala, help\""]; // Activities
@@ -13,7 +11,7 @@ let activity = 0; // Acttivity count
 client.on('ready', () => { // On ready
     const general = client.channels.find(channel => channel.name === "general"); // Find general channel
 
-    functions.botWrite(general, 'neutral', 'Bot ready!', client); // Startup message
+    functions.botWrite(general, 'neutral', 'Bot ready!', client).delete(5000); // Startup message
 
     setInterval(function() { // Activity loop
         if (activity >= activities.length) { // Check if activity value is greater than amount of activities
@@ -32,6 +30,7 @@ client.on('message', (message) => { // On message
 
     if (message.content[0] == settings.prefix) { // Check if bot was called
         commandCheck.run(message, client);
+        message.delete(0);
     }
 });
 
