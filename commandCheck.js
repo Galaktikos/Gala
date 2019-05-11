@@ -3,7 +3,7 @@ const fs = require('fs'), // File system
 
 exports.run = function (message, client) { // Command
     let found = false;
-
+    
     if (message.content[1]) {
         fs.readdir('./Commands', function(err, items) { // Read commands directory
             items = items.filter(function(ele){return ele != 'main.js'});
@@ -37,10 +37,10 @@ exports.run = function (message, client) { // Command
                     if (message.content[2]) {
                         commands(2);
                     } else {
-                        check([items[a]], 2)
+                        check([items[a]], 2);
                     }
 
-                    a == items.length;
+                    a = items.length;
                 } else if (a + 1 == items.length) {
                     commands(1);
                 }
