@@ -11,7 +11,7 @@ let activity = 0; // Acttivity count
 client.on('ready', () => { // On ready
     const general = client.channels.find(channel => channel.name === "general"); // Find general channel
 
-    functions.botWrite(general, 'neutral', 'Bot ready!', client).delete(5000); // Startup message
+    functions.botWrite(general, 'neutral', 'Bot ready!', client) // Startup message
 
     setInterval(function() { // Activity loop
         if (activity >= activities.length) { // Check if activity value is greater than amount of activities
