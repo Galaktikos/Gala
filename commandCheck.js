@@ -82,12 +82,12 @@ exports.run = function (message, client) { // Command
                                 }
                             }
                         } else {
-                            let emojis = ['⬅'];
+                            let emojis = [{'name': 'Back', 'emoji': '⬅'];
                             let text = '⬅ Back\n';
 
                             for (let a = 0; a < subCommands.length; a++) {
                                 const file = require(command + '/' + subCommands[a] + '/main.js');
-                                emojis.push(file.emoji);
+                                emojis.push({'name': subCommands[a], 'emoji': file.emoji);
                                 text += file.emoji + ' ' + subCommands[a] + '\n';
                             }
 
