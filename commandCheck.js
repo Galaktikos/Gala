@@ -82,13 +82,13 @@ exports.run = function (message, client) { // Command
                                 }
                             }
                         } else {
-                            let emojis = [];
-                            let text = '';
+                            let emojis = ['⬅'];
+                            let text = '⬅ Back\n';
 
                             for (let a = 0; a < subCommands.length; a++) {
                                 const file = require(command + '/' + subCommands[a] + '/main.js');
-                                emojis.push({'name': subCommands[a], 'emoji': file.emoji});
-                                text += file.emoji + subCommands[a] + '\n';
+                                emojis.push(file.emoji);
+                                text += file.emoji + ' ' + subCommands[a] + '\n';
                             }
 
                             functions.reactWrite(message, 'sucess', text, emojis, items, client);
