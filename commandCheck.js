@@ -82,7 +82,7 @@ exports.run = function (message, client) { // Command
                                 }
                             }
                         } else {
-                            let emojis = [{'name': 'Back', 'emoji': '⬅'];
+                            let emojis = [{'name': 'Back', 'emoji': '⬅'}];
                             let text = '⬅ Back\n';
 
                             for (let a = 0; a < subCommands.length; a++) {
