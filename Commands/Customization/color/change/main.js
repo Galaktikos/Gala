@@ -9,9 +9,17 @@ exports.run = function (message) {
         
         for (let a = 0; a < obj.users.length; a++) { // Loop through values
             if (obj.users[a].id == message.author.id) { // Check if id matches author
-                obj.users[a].name = message.author.username; // Update name
-                obj.users[a].color = parseInt(message.content[3], 16); // Set color value
-                functions.write(message, 'sucess', 'Your color is now set to ' + parseInt(message.content[3], 16), obj);
+                if (obj.users[a].color) {
+                    obj.users[a].name = message.author.username; // Update name
+                    obj.users[a].color = parseInt(message.content[3], 16); // Set color value
+                    functions.write(message, 'sucess', 'Your color is now set to ' + parseInt(message.content[3], 16), obj);
+                } else {
+                    obj.users[a].name = message.author.username; // Update name
+                    obj.users[a].color = 0;
+                    functions.write(message, 'sucess', 'Your color is now set to ' + parseInt(message.content[3], 16), obj); // Send output
+
+                    a = obj.users.length;
+                }
             } else if (a+1 == obj.users.length) { // Check for last loop
                 obj.users.push({name: message.author.username, id: message.author.id, color: parseInt(message.content[3], 16)}); // Create new user
                 functions.write(message, 'sucess', 'Your color is now set to ' + parseInt(message.content[3], 16), obj);
