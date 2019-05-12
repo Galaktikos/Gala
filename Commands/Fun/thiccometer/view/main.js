@@ -40,6 +40,6 @@ exports.run = function (message, client) { // Command
 
 exports.about = "View you or other people's thiccness."; // About
 
-exports.parameter = ['mention']; // Parameter
+exports.parameter = [{'type': 'mention', 'text': 'Reply by mentioning yourself or another user to view thiccness.'}]; // Parameter
 
 exports.emoji = '🔎';

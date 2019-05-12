@@ -35,6 +35,4 @@ exports.run = function (message, client) { // Command
 
 exports.about = 'Check money'; // About
 
-exports.parameter = ['mention']; // Parameter
-
 exports.emoji = '🗓';

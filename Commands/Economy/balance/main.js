@@ -35,6 +35,6 @@ exports.run = function (message, client) { // Command
 
 exports.about = 'Check money'; // About
 
-exports.parameter = ['mention']; // Parameter
+exports.parameter = [{'type': 'mention', 'text': 'Reply by mentioning yourself or another user to view balance.'}]; // Parameter
 
 exports.emoji = '💰';

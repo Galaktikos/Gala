@@ -65,13 +65,13 @@ exports.run = function (message, client) { // Command
             file.run(message, client); // Run command
         } else {
             for (let b = 0; b < file.parameter.length; b++) {
-                if (file.parameter[b] == 'command') {
+                if (file.parameter[b].type == 'command') {
                     fs.readdir(command, function(err, subCommands) {
                         if(err) console.log('error', err); // Log error
                         
                         subCommands = subCommands.filter(function(ele){return ele != 'main.js'});
 
-                        if (message.content[num] && message.content[num] != '') {                
+                        if (message.content[num + b] && message.content[num + b] != '') {                
                             for (let a = 0; a < subCommands.length; a++) {
                                 if (subCommands[a] == message.content[num  + b]) {
                                     items.push(subCommands[a]);
@@ -100,7 +100,7 @@ exports.run = function (message, client) { // Command
                             functions.reactWrite(message, 'sucess', text, emojis, items, client);
                         }
                     });
-                } else if (file.parameter[b] == 'hex') {
+                } else if (file.parameter[b].type == 'hex') {
                     if (message.content[num + b] && message.content[num + b] != '') {
                         const re = /[0-9A-Fa-f]{6}/g; // Test String
                         message.content[num + b] = message.content[num + b].replace('#', ''); // Take off #
@@ -112,9 +112,9 @@ exports.run = function (message, client) { // Command
                             a = file.parameter.length;
                         }
                     } else {
-                        functions.colorWrite(message, 'sucess', 'Reply with a hex vale or choose from a color below.', client);
+                        functions.colorWrite(message, 'sucess', file.parameter[b].text, client);
                     }
-                } else if (file.parameter[b] == 'mention') {
+                } else if (file.parameter[b].type == 'mention') {
                     if (message.content[num + b] && message.content[num + b] != '') {
                         if (message.content[num + b].startsWith('<@') && message.content[num + b].endsWith('>')) {
                             message.content[num + b] = message.content[num + b].slice(2, -1);
@@ -137,11 +137,13 @@ exports.run = function (message, client) { // Command
                             b = file.parameter.length;
                         }
                     } else {
-                        functions.waitWrite(message, 'sucess', 'Respond with a mention of someone or yourself.', client);
+                        functions.waitWrite(message, 'sucess', file.parameter[b].text, client);
                     }
-                } else if (file.parameter[b] == 'number') {
-                    if (true) {
+                } else if (file.parameter[b].type == 'number') {
+                    if (message.content[num + b] && message.content[num + b] != '') {
                         
+                    } else {
+                        functions.waitWrite(message, 'sucess', file.parameter[b].text, client);
                     }
                 }
             }

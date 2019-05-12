@@ -31,6 +31,6 @@ exports.run = function (message) {
 
 exports.about = 'Change theme color.'; // About
 
-exports.parameter = ['hex']; // Paramaters
+exports.parameter = [{'type': 'hex', 'text': 'Reply with color hex value or choose a color from the list below to change color.'}]; // Paramaters
 
 exports.emoji = '📝';

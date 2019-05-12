@@ -1,1 +1,1 @@
-exports.parameter = ['command']; // Parameter
+exports.parameter = [{'type': 'command'}]; // Parameter
