@@ -82,12 +82,17 @@ exports.run = function (message, client) { // Command
                                 }
                             }
                         } else {
-                            let emojis = [{'name': 'Back', 'emoji': '⬅'}];
-                            let text = '⬅ Back\n';
+                            let emojis = [];
+                            let text = '';
+
+                            if (items.length !== 0) {
+                                emojis = [{'name': 'Back', 'emoji': '⬅'}];
+                                text = '⬅ Back\n';
+                            }
 
                             for (let a = 0; a < subCommands.length; a++) {
                                 const file = require(command + '/' + subCommands[a] + '/main.js');
-                                emojis.push({'name': subCommands[a], 'emoji': file.emoji);
+                                emojis.push({'name': subCommands[a], 'emoji': file.emoji});
                                 text += file.emoji + ' ' + subCommands[a] + '\n';
                             }
 
@@ -106,7 +111,7 @@ exports.run = function (message, client) { // Command
                             a = file.parameter.length;
                         }
                     } else {
-                        
+                        functions.reactWrite(message, 'sucess', text, emojis, items, client);
                     }
                 } else if (file.parameter[b] == 'mention') {
                     if (message.content[num + b] || message.content[num + b] == '') {

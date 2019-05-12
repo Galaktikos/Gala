@@ -26,8 +26,8 @@ exports.run = function (message, client) { // Command
                     a = obj.users.length;
                 }
             } else if (a + 1 == obj.users.length) {
-                obj.users.push({name: member.username, id: member.id, value: Math.round(Math.random()*200)}); //Create random thiccness starting value
-                functions.write(message, 'sucess', member.username + ' is ' + obj.users[a+1].value + '% thicc!', obj); // Send output
+                obj.users.push({name: member.username, id: member.id, value: Math.round(Math.random() * 200)}); //Create random thiccness starting value
+                functions.write(message, 'sucess', member.username + ' is ' + obj.users[a + 1].value + '% thicc!', obj); // Send output
 
                 a = obj.users.length;
             }

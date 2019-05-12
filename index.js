@@ -1,5 +1,5 @@
 const Discord = require('discord.js'), // Discord import
-    client = new Discord.Client(), // Discord client
+client = new Discord.Client(), // Discord client
     functions = require('./functions.js'), // Functions
     settings = require('./settings.json'), // Settings
     logger = require('./logger.js'), // Logger
@@ -53,5 +53,5 @@ function message() {
 message();
 
 // Login
-//client.login(process.env.BOT_TOKEN);
-client.login('NTYxOTk3NTM5NDAyODQyMTMy.XNHz8w.Rdi35q4-Z1FD7O-XM76K4MS4e7o');
+client.login(process.env.BOT_TOKEN);
+
