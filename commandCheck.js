@@ -101,7 +101,7 @@ exports.run = function (message, client) { // Command
                         }
                     });
                 } else if (file.parameter[b] == 'hex') {
-                    if (message.content[num + b] || message.content[num + b] == '') {
+                    if (message.content[num + b] && message.content[num + b] != '') {
                         const re = /[0-9A-Fa-f]{6}/g; // Test String
                         message.content[num + b] = message.content[num + b].replace('#', ''); // Take off #
 
@@ -112,7 +112,7 @@ exports.run = function (message, client) { // Command
                             a = file.parameter.length;
                         }
                     } else {
-                        functions.reactWrite(message, 'sucess', text, emojis, items, client);
+                        functions.colorWrite(message, 'sucess', 'Reply with a hex vale or choose from a color below.', client);
                     }
                 } else if (file.parameter[b] == 'mention') {
                     if (message.content[num + b] || message.content[num + b] == '') {
