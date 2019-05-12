@@ -71,7 +71,7 @@ exports.run = function (message, client) { // Command
                         
                         subCommands = subCommands.filter(function(ele){return ele != 'main.js'});
 
-                        if (message.content[num] || message.content[num] == '') {                
+                        if (message.content[num] && message.content[num] != '') {                
                             for (let a = 0; a < subCommands.length; a++) {
                                 if (subCommands[a] == message.content[num  + b]) {
                                     items.push(subCommands[a]);
@@ -88,13 +88,13 @@ exports.run = function (message, client) { // Command
 
                             if (items.length !== 0) {
                                 emojis = [{'name': 'Back', 'emoji': '⬅'}];
-                                text = '⬅ Back\n';
+                                text = '⬅ **Back**\n`Go to previous page.`\n\n';
                             }
 
                             for (let a = 0; a < subCommands.length; a++) {
                                 const file = require(command + '/' + subCommands[a] + '/main.js');
                                 emojis.push({'name': subCommands[a], 'emoji': file.emoji});
-                                text += file.emoji + ' ' + subCommands[a] + '\n';
+                                text += file.emoji + ' **' + subCommands[a] + '**\n`' + file.about + '`\n\n';
                             }
 
                             functions.reactWrite(message, 'sucess', text, emojis, items, client);
@@ -115,7 +115,7 @@ exports.run = function (message, client) { // Command
                         functions.colorWrite(message, 'sucess', 'Reply with a hex vale or choose from a color below.', client);
                     }
                 } else if (file.parameter[b] == 'mention') {
-                    if (message.content[num + b] || message.content[num + b] == '') {
+                    if (message.content[num + b] && message.content[num + b] != '') {
                         if (message.content[num + b].startsWith('<@') && message.content[num + b].endsWith('>')) {
                             message.content[num + b] = message.content[num + b].slice(2, -1);
                     
@@ -137,7 +137,7 @@ exports.run = function (message, client) { // Command
                             b = file.parameter.length;
                         }
                     } else {
-                            
+                        functions.waitWrite(message, 'sucess', 'Respond with a mention of someone or yourself.', client);
                     }
                 } else if (file.parameter[b] == 'number') {
                     if (true) {
