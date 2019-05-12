@@ -4,7 +4,7 @@ client = new Discord.Client(), // Discord client
     settings = require('./settings.json'), // Settings
     logger = require('./logger.js'), // Logger
     readline = require('readline'), // Readline
-    activities = [`with ${client.users.size} people`, "Try \"Gala, help\""]; // Activities
+    activities = [`with ${client.users.size} people`, "Try \"" + settings.prefix + "\""]; // Activities
     commandCheck = require('./commandCheck'); // Command Check
 let activity = 0; // Acttivity count
 
@@ -53,5 +53,5 @@ function message() {
 message();
 
 // Login
-client.login(process.env.BOT_TOKEN);
-
+//client.login(process.env.BOT_TOKEN);
+client.login('NTYxOTk3NTM5NDAyODQyMTMy.XNHz8w.Rdi35q4-Z1FD7O-XM76K4MS4e7o');

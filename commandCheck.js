@@ -1,4 +1,5 @@
 const fs = require('fs'), // File system
+    settings = require('./settings.json'), // Settings
     functions = require('./functions'); // Functions
 
 exports.run = function (message, client) { // Command
@@ -25,7 +26,7 @@ exports.run = function (message, client) { // Command
 
                                 found = true;
                             } else if (a + 1 == items.length && b + 1 == items2.length && !found) {
-                                functions.write(message, 'error', 'Command not found, please use `Gala` for commands.'); // Send error message
+                                functions.write(message, 'error', 'Command not found, please use `' + settings.prefix + '` for commands.'); // Send error message
                             }
                         }
                     });
@@ -77,7 +78,7 @@ exports.run = function (message, client) { // Command
                                     check(items, num + 1);
                                     a = subCommands.length;
                                 } else if (a + 1 == subCommands.length) {
-                                    functions.write(message, 'error', 'Subcommand not found, please use `Gala ' + command.replace('./Commands/' + items[0] + '/', '').replace('/', ' ') + '` for commands.'); // Send error message
+                                    functions.write(message, 'error', 'Subcommand not found, please use `' + settings.prefix + ' ' + command.replace('./Commands/' + items[0] + '/', '').replace('/', ' ') + '` for commands.'); // Send error message
                                     a = file.parameter.length;
                                 }
                             }
