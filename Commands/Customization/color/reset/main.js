@@ -8,9 +8,9 @@ exports.run = function (message, color) {
         let obj = JSON.parse(data); // Convert to list
 
         for (let a = 0; a < obj.users.length; a++) { // Loop through values
-            if (obj.users[a].id == message.author.id) { // Check if id matches author
+            if (obj.users[a].id == message.author.id && obj.users[a].color) { // Check if id matches author
                 obj.users[a].name = message.author.username; // Update name
-                obj.users[a].color = undefined; // Set color value
+                delete obj.users[a].color;
                 functions.write(message, 'sucess', 'Your color has been reset.', obj);
 
                 a = obj.users.length; // Stop loop

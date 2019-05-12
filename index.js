@@ -1,10 +1,10 @@
 const Discord = require('discord.js'), // Discord import
-    client = new Discord.Client(), // Discord client
+client = new Discord.Client(), // Discord client
     functions = require('./functions.js'), // Functions
     settings = require('./settings.json'), // Settings
     logger = require('./logger.js'), // Logger
     readline = require('readline'), // Readline
-    activities = [`with ${client.users.size} people`, "Try \"Gala, help\""]; // Activities
+    activities = [`with ${client.users.size} people`, "Try \"" + settings.prefix + "\""]; // Activities
     commandCheck = require('./commandCheck'); // Command Check
 let activity = 0; // Acttivity count
 

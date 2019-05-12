@@ -1,5 +1,5 @@
 exports.about = 'Manage thiccness'; // About
 
-exports.parameter = ['command']; // Parameter
+exports.parameter = [{'type': 'command'}]; // Parameter
 
 exports.emoji = '💪';

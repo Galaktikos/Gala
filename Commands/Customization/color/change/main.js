@@ -12,9 +12,13 @@ exports.run = function (message) {
                 obj.users[a].name = message.author.username; // Update name
                 obj.users[a].color = parseInt(message.content[3], 16); // Set color value
                 functions.write(message, 'sucess', 'Your color is now set to ' + parseInt(message.content[3], 16), obj);
+
+                a = obj.users.length;
             } else if (a+1 == obj.users.length) { // Check for last loop
                 obj.users.push({name: message.author.username, id: message.author.id, color: parseInt(message.content[3], 16)}); // Create new user
                 functions.write(message, 'sucess', 'Your color is now set to ' + parseInt(message.content[3], 16), obj);
+                
+                a = obj.users.length;
             }
         }
 
@@ -27,6 +31,6 @@ exports.run = function (message) {
 
 exports.about = 'Change theme color.'; // About
 
-exports.parameter = ['hex']; // Paramaters
+exports.parameter = [{'type': 'hex', 'text': 'Reply with color hex value or choose a color from the list below to change color.'}]; // Paramaters
 
 exports.emoji = '📝';
