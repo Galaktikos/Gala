@@ -3,8 +3,6 @@ const fs = require('fs'), // File system
     functions = require('./functions'); // Functions
 
 exports.run = function (message, client) { // Command
-    let found = false;
-    
     if (message.content[1]) {
         fs.readdir('./Commands', function(err, items) { // Read commands directory
             items = items.filter(function(ele){return ele != 'main.js'});
@@ -24,8 +22,9 @@ exports.run = function (message, client) { // Command
                                     check([items[a], items2[b]], 2);
                                 }
 
-                                found = true;
-                            } else if (a + 1 == items.length && b + 1 == items2.length && !found) {
+                                a = items.length;
+                                b = items2.length;
+                            } else if (a + 1 == items.length && b + 1 == items2.length) {
                                 functions.write(message, 'error', 'Command not found, please use `' + settings.prefix + '` for commands.'); // Send error message
                             }
                         }
@@ -35,13 +34,13 @@ exports.run = function (message, client) { // Command
 
             for (let a = 0; a < items.length; a++) { // Loop through categories
                 if (message.content[1] == items[a].toLowerCase()) { // Check if command matches message
-                    message.content = message.content.filter(function(ele){return ele != message.content[1]});
                     if (message.content[2]) {
                         commands();
                     } else {
                         check([items[a]], 2);
                     }
 
+                    message.content = message.content.filter(function(ele){return ele != message.content[1]});
                     a = items.length;
                 } else if (a + 1 == items.length) {
                     commands();
