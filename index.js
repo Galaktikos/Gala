@@ -30,7 +30,7 @@ client.on('message', (message) => { // On message
 
     if (message.content[0] == settings.prefix) { // Check if bot was called
         commandCheck.run(message, client);
-        message.delete(0);
+        message.delete(1000);
     }
 });
 
