@@ -59,6 +59,8 @@ message();
 
 const commandCheck = {
     'run': function (message, client) {
+        let done = false;
+        
         if (message.content[1]) {
             fs.readdir('./Commands', function(err, items) {
                 items = items.filter(function(ele){return ele != 'main.js'});
@@ -80,7 +82,8 @@ const commandCheck = {
 
                                     a = items.length;
                                     b = items2.length;
-                                } else if (a + 1 == items.length && b + 1 == items2.length) {
+                                    done = true;
+                                } else if (a + 1 == items.length && b + 1 == items2.length && !done) {
                                     functions.write(message, 'error', 'Command not found, please use `' + settings.prefix + '` for commands.');
                                 }
                             }
