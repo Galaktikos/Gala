@@ -1,7 +1,13 @@
 const Discord = require('discord.js'),
     client = new Discord.Client(),
     settings = require('./settings.json'),
-    fs = require('fs');
+    fs = require('fs'),
+    colors = { // Colors
+        'sucess': 65280,
+        'neutral': 2061822,
+        'error': 16711680,
+        'custom': 0
+    };
 
 let activities = [`with ${client.users.size} users on ${client.guilds.size} servers.`, "Try \"" + settings.prefix + "\""],
     activity = 0;
@@ -200,13 +206,6 @@ commandCheck.run = function (message, client) { // Command
         }
     }
 };
-
-const colors = { // Colors
-    'sucess': 65280,
-    'neutral': 2061822,
-    'error': 16711680,
-    'custom': 0
-}
 
 exports.write = function (message, color, text, obj) { // Create and send an embed
     if (!obj) {
