@@ -252,7 +252,7 @@ let functions = {
             .setTimestamp();
 
         channel.send(embed); // Send embed
-    }
+    },
 
     'reactWrite': async (message, color, text, items, comItems, client, obj) => { // Create and send an embed
         if (!obj) {
@@ -316,7 +316,7 @@ let functions = {
                 }, {time: 120000});
             });
         }
-    }
+    },
 
     'waitWrite': async (message, color, text, client, obj) => { // Create and send an embed
         if (!obj) {
@@ -363,7 +363,7 @@ let functions = {
                 }, {time: 120000});
             });
         }
-    }
+    },
 
     'colorWrite': async (message, color, text, client, obj) => { // Create and send an embed
         items = [{'name': 'Back', 'emoji': '⬅'}, {'name': 'Black', 'emoji': '⬛', 'value': '000000'}, {'name': 'White', 'emoji': '⚪', 'value': 'FFFFFF'}, {'name': 'Orange', 'emoji': '🔶', 'value': 'FFA500'}, {'name': 'Red', 'emoji': '♦', 'value': 'FF0000'}, {'name': 'Orange', 'emoji': '🔹', 'value': '1589FF'}];
