@@ -1,6 +1,7 @@
 const fs = require('fs'), // File system
     settings = require('./settings.json'), // Settings
-    functions = require('./functions'); // Functions
+    functions = require('./functions'), // Functions
+    data = require('./data'); // Data
 
 exports.run = function (message, client) { // Command
     if (message.content[1]) {
