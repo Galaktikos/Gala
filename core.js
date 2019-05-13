@@ -419,6 +419,7 @@ const functions = {
                     for (let a = 0; a < items.length; a++) {
                         if (reaction.emoji.name === items[a].emoji && user.id == message.author.id && !done) {
                             if (items[a].name != 'Exit') {
+                                console.log(items[a].name);
                                 if (items[a].name == 'Back') {
                                     message.content.pop();
                                 } else {
