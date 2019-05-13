@@ -2,6 +2,7 @@ const Discord = require('discord.js'),
     client = new Discord.Client(),
     settings = require('./settings.json'),
     fs = require('fs'),
+    readline = require('readline'),
     colors = { // Colors
         'sucess': 65280,
         'neutral': 2061822,
