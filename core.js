@@ -58,7 +58,7 @@ function message() {
 message();
 
 let commandCheck = {
-    'run' = function (message, client) { // Command
+    'run': function (message, client) { // Command
         if (message.content[1]) {
             fs.readdir('./Commands', function(err, items) { // Read commands directory
                 items = items.filter(function(ele){return ele != 'main.js'});
