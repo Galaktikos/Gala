@@ -305,15 +305,19 @@ const functions = {
                 await mes.awaitReactions((reaction, user) => {
                     for (let a = 0; a < items.length; a++) {
                         if (reaction.emoji.name === items[a].emoji && user.id == message.author.id && !done) {
-                            if (items[a].name == 'Back') {
-                                message.content.pop();
-                            } else {
-                                message.content.push(items[a].name.toLowerCase());
-                            }
+                            if (items[a].name != 'Exit') {
+                                if (items[a].name == 'Back') {
+                                    message.content.pop();
+                                } else {
+                                    message.content.push(items[a].name.toLowerCase());
+                                }
 
-                            commandCheck.run(message, client);
+                                commandCheck.run(message, client);
+                            }
+                            
                             mes.delete();
                             done = true;
+                                
                         }
                     }
                 }, {time: 120000});
@@ -419,7 +423,6 @@ const functions = {
                     for (let a = 0; a < items.length; a++) {
                         if (reaction.emoji.name === items[a].emoji && user.id == message.author.id && !done) {
                             if (items[a].name != 'Exit') {
-                                console.log(items[a].name);
                                 if (items[a].name == 'Back') {
                                     message.content.pop();
                                 } else {
