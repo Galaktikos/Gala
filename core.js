@@ -207,7 +207,7 @@ let commandCheck = {
                 }
             }
         }
-    };
+    }
 };
 
 exports.write = function (message, color, text, obj) { // Create and send an embed
