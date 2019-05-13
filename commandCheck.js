@@ -96,8 +96,8 @@ exports.run = function (message, client) { // Command
                                 text += file.emoji + ' **' + subCommands[a] + '**\n`' + file.about + '`\n\n';
                             }
                             
-                            emojis.push({'name': 'Exit', 'emoji': '🗙'});
-                            text += '🗙 **Exit**\n`Cancel current command.`';
+                            emojis.push({'name': 'Exit', 'emoji': '❌'});
+                            text += '❌ **Exit**\n`Cancel current command.`';
 
                             functions.reactWrite(message, 'sucess', text, emojis, items, client);
                         }
