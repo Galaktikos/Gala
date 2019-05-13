@@ -244,7 +244,7 @@ exports.write = function (message, color, text, obj) { // Create and send an emb
 }
 
 let functions = {
-    'botWrite' = function (channel, color, text, client) {
+    'botWrite': function (channel, color, text, client) {
         const embed = new Discord.RichEmbed() // Create embed
             .setColor(colors[color])
             .setTitle(text)
@@ -254,7 +254,7 @@ let functions = {
         channel.send(embed); // Send embed
     }
 
-    'reactWrite' = async (message, color, text, items, comItems, client, obj) => { // Create and send an embed
+    'reactWrite': async (message, color, text, items, comItems, client, obj) => { // Create and send an embed
         if (!obj) {
             fs.readFile('./data.json', 'utf8', function readFileCallback (err, data) { // Read file
                 obj = JSON.parse(data); // Convert to list
@@ -318,7 +318,7 @@ let functions = {
         }
     }
 
-    'waitWrite' = async (message, color, text, client, obj) => { // Create and send an embed
+    'waitWrite': async (message, color, text, client, obj) => { // Create and send an embed
         if (!obj) {
             fs.readFile('./data.json', 'utf8', function readFileCallback (err, data) { // Read file
                 obj = JSON.parse(data); // Convert to list
@@ -365,7 +365,7 @@ let functions = {
         }
     }
 
-    'colorWrite' = async (message, color, text, client, obj) => { // Create and send an embed
+    'colorWrite': async (message, color, text, client, obj) => { // Create and send an embed
         items = [{'name': 'Back', 'emoji': '⬅'}, {'name': 'Black', 'emoji': '⬛', 'value': '000000'}, {'name': 'White', 'emoji': '⚪', 'value': 'FFFFFF'}, {'name': 'Orange', 'emoji': '🔶', 'value': 'FFA500'}, {'name': 'Red', 'emoji': '♦', 'value': 'FF0000'}, {'name': 'Orange', 'emoji': '🔹', 'value': '1589FF'}];
 
         if (!obj) {
