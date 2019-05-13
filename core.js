@@ -221,7 +221,7 @@ const functions = {
         channel.send(embed); // Send embed
     },
     
-    'write' = function (message, color, text, obj) { // Create and send an embed
+    'write': function (message, color, text, obj) { // Create and send an embed
         if (!obj) {
             fs.readFile('./data.json', 'utf8', function readFileCallback (err, data) { // Read file
                 obj = JSON.parse(data); // Convert to list
