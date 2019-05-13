@@ -57,7 +57,7 @@ function message() {
 
 message();
 
-let commandCheck = {
+const commandCheck = {
     'run': function (message, client) { // Command
         if (message.content[1]) {
             fs.readdir('./Commands', function(err, items) { // Read commands directory
@@ -210,43 +210,7 @@ let commandCheck = {
     }
 };
 
-exports.write = function (message, color, text, obj) { // Create and send an embed
-    if (!obj) {
-        fs.readFile('./data.json', 'utf8', function readFileCallback (err, data) { // Read file
-            obj = JSON.parse(data); // Convert to list
-            run();
-        });
-    } else {
-        run();
-    }
-
-    function run() {
-        if (color != 'error') { // Overide if error
-            for (let a = 0; a < obj.users.length; a++) { // Loop through values
-                if (obj.users[a].id == message.author.id) { // Check if id matches author
-                    if (obj.users[a].color != null) { // Check for color preferance
-                        colors.custom = obj.users[a].color; // Set custom color to user preference
-                        color = 'custom'; // Set color to custom
-                    }
-                }
-            }
-        }
-
-        send();
-    }
-
-    function send () { // Generate message
-        const embed = new Discord.RichEmbed() // Create embed
-            .setColor(colors[color])
-            .setTitle(text)
-            .setAuthor(message.author.username, message.author.avatarURL)
-            .setTimestamp();
-
-        message.channel.send(embed); // Send embed
-    }
-}
-
-let functions = {
+const functions = {
     'botWrite': function (channel, color, text, client) {
         const embed = new Discord.RichEmbed() // Create embed
             .setColor(colors[color])
@@ -255,6 +219,42 @@ let functions = {
             .setTimestamp();
 
         channel.send(embed); // Send embed
+    },
+    
+    'write' = function (message, color, text, obj) { // Create and send an embed
+        if (!obj) {
+            fs.readFile('./data.json', 'utf8', function readFileCallback (err, data) { // Read file
+                obj = JSON.parse(data); // Convert to list
+                run();
+            });
+        } else {
+            run();
+        }
+
+        function run() {
+            if (color != 'error') { // Overide if error
+                for (let a = 0; a < obj.users.length; a++) { // Loop through values
+                    if (obj.users[a].id == message.author.id) { // Check if id matches author
+                        if (obj.users[a].color != null) { // Check for color preferance
+                            colors.custom = obj.users[a].color; // Set custom color to user preference
+                            color = 'custom'; // Set color to custom
+                        }
+                    }
+                }
+            }
+
+            send();
+        }
+
+        function send () { // Generate message
+            const embed = new Discord.RichEmbed() // Create embed
+                .setColor(colors[color])
+                .setTitle(text)
+                .setAuthor(message.author.username, message.author.avatarURL)
+                .setTimestamp();
+
+            message.channel.send(embed); // Send embed
+        }
     },
 
     'reactWrite': async (message, color, text, items, comItems, client, obj) => { // Create and send an embed
@@ -441,6 +441,15 @@ let functions = {
             }, {time: 120000});
         }
     }
-}
+};
+
+const logger = {
+    'run' : function (message) {
+        var d = new Date(message.timestamp);
+
+        console.log(d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear() + ' ' + message.author.username + ': ' + message.content);
+    }
+};
+
 
 client.login(process.env.BOT_TOKEN);
