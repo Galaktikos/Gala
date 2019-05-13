@@ -58,21 +58,21 @@ function message() {
 message();
 
 const commandCheck = {
-    'run': function (message, client) { // Command
+    'run': function (message, client) {
         if (message.content[1]) {
-            fs.readdir('./Commands', function(err, items) { // Read commands directory
+            fs.readdir('./Commands', function(err, items) {
                 items = items.filter(function(ele){return ele != 'main.js'});
 
                 function commands() {
-                    for (let a = 0; a < items.length; a++) { // Loop through categories
-                        fs.readdir('./Commands/'+items[a], function(err, items2) { // Read categories
-                            for (let b = 0; b < items2.length; b++) { // Loop through commands
-                                if (message.content[1] == items2[b].toLowerCase()) { // Check if command matches message
-                                    if (items[a] == 'Admin') { // Check if command is for admin
-                                        if(message.member.roles.some(r=>data.adminRoles.includes(r.name)) ) { // Check if user has an admin role
+                    for (let a = 0; a < items.length; a++) {
+                        fs.readdir('./Commands/'+items[a], function(err, items2) {
+                            for (let b = 0; b < items2.length; b++) {
+                                if (message.content[1] == items2[b].toLowerCase()) {
+                                    if (items[a] == 'Admin') {
+                                        if(message.member.roles.some(r=>data.adminRoles.includes(r.name)) ) {
                                             check([items[a], items2[b]], 2);
                                         } else {
-                                            functions.write(message, 'error', 'You need the permission(s) `' + command.permissions().join(', ') + '` to use the command `' + message.content[1] + '.'); // Send denial message
+                                            functions.write(message, 'error', 'You need the permission(s) `' + command.permissions().join(', ') + '` to use the command `' + message.content[1] + '.');
                                         }
                                     } else {
                                         check([items[a], items2[b]], 2);
@@ -81,15 +81,15 @@ const commandCheck = {
                                     a = items.length;
                                     b = items2.length;
                                 } else if (a + 1 == items.length && b + 1 == items2.length) {
-                                    functions.write(message, 'error', 'Command not found, please use `' + settings.prefix + '` for commands.'); // Send error message
+                                    functions.write(message, 'error', 'Command not found, please use `' + settings.prefix + '` for commands.');
                                 }
                             }
                         });
                     }
                 }
 
-                for (let a = 0; a < items.length; a++) { // Loop through categories
-                    if (message.content[1] == items[a].toLowerCase()) { // Check if command matches message
+                for (let a = 0; a < items.length; a++) {
+                    if (message.content[1] == items[a].toLowerCase()) {
                         if (message.content[2]) {
                             commands();
                         } else {
@@ -114,15 +114,15 @@ const commandCheck = {
                 command += '/'+items[a];
             }
 
-            const file = require(command+'/main.js'); // Get file
+            const file = require(command+'/main.js');
 
             if (!file.parameter) {
-                file.run(message, client); // Run command
+                file.run(message, client);
             } else {
                 for (let b = 0; b < file.parameter.length; b++) {
                     if (file.parameter[b].type == 'command') {
                         fs.readdir(command, function(err, subCommands) {
-                            if(err) console.log('error', err); // Log error
+                            if(err) console.log('error', err);
 
                             subCommands = subCommands.filter(function(ele){return ele != 'main.js'});
 
@@ -133,7 +133,7 @@ const commandCheck = {
                                         check(items, num + 1);
                                         a = subCommands.length;
                                     } else if (a + 1 == subCommands.length) {
-                                        functions.write(message, 'error', 'Subcommand not found, please use `' + settings.prefix + ' ' + command.replace('./Commands/' + items[0] + '/', '').replace('/', ' ') + '` for commands.'); // Send error message
+                                        functions.write(message, 'error', 'Subcommand not found, please use `' + settings.prefix + ' ' + command.replace('./Commands/' + items[0] + '/', '').replace('/', ' ') + '` for commands.');
                                         a = file.parameter.length;
                                     }
                                 }
@@ -160,13 +160,13 @@ const commandCheck = {
                         });
                     } else if (file.parameter[b].type == 'hex') {
                         if (message.content[num + b] && message.content[num + b] != '') {
-                            const re = /[0-9A-Fa-f]{6}/g; // Test String
-                            message.content[num + b] = message.content[num + b].replace('#', ''); // Take off #
+                            const re = /[0-9A-Fa-f]{6}/g;
+                            message.content[num + b] = message.content[num + b].replace('#', '');
 
-                            if (re.test(message.content[num + b]) && message.content[num + b].length == 6) { // Check if valid hex
-                                file.run(message, client); // Run command
+                            if (re.test(message.content[num + b]) && message.content[num + b].length == 6) {
+                                file.run(message, client);
                             } else {
-                                functions.write(message, 'error', 'Invalid hex code.'); // Write error
+                                functions.write(message, 'error', 'Invalid hex code.');
                                 a = file.parameter.length;
                             }
                         } else {
@@ -186,12 +186,12 @@ const commandCheck = {
 
                             const member = client.users.get(message.content[num + b]);
 
-                            if (member !== undefined) { // Check if mention exists
+                            if (member !== undefined) {
                                 if (b + 1 == file.parameter.length) {
-                                    file.run(message, client); // Run command
+                                    file.run(message, client);
                                 }
                             } else {
-                                functions.write(message, 'error', 'Person not found.'); // Write error
+                                functions.write(message, 'error', 'Person not found.');
                                 b = file.parameter.length;
                             }
                         } else {
@@ -212,19 +212,19 @@ const commandCheck = {
 
 const functions = {
     'botWrite': function (channel, color, text, client) {
-        const embed = new Discord.RichEmbed() // Create embed
+        const embed = new Discord.RichEmbed()
             .setColor(colors[color])
             .setTitle(text)
             .setAuthor(client.user.username, client.user.avatarURL)
             .setTimestamp();
 
-        channel.send(embed); // Send embed
+        channel.send(embed);
     },
     
-    'write': function (message, color, text, obj) { // Create and send an embed
+    'write': function (message, color, text, obj) {
         if (!obj) {
-            fs.readFile('./data.json', 'utf8', function readFileCallback (err, data) { // Read file
-                obj = JSON.parse(data); // Convert to list
+            fs.readFile('./data.json', 'utf8', function readFileCallback (err, data) {
+                obj = JSON.parse(data);
                 run();
             });
         } else {
@@ -232,12 +232,12 @@ const functions = {
         }
 
         function run() {
-            if (color != 'error') { // Overide if error
-                for (let a = 0; a < obj.users.length; a++) { // Loop through values
-                    if (obj.users[a].id == message.author.id) { // Check if id matches author
-                        if (obj.users[a].color != null) { // Check for color preferance
-                            colors.custom = obj.users[a].color; // Set custom color to user preference
-                            color = 'custom'; // Set color to custom
+            if (color != 'error') {
+                for (let a = 0; a < obj.users.length; a++) {
+                    if (obj.users[a].id == message.author.id) {
+                        if (obj.users[a].color != null) {
+                            colors.custom = obj.users[a].color;
+                            color = 'custom';
                         }
                     }
                 }
@@ -246,21 +246,21 @@ const functions = {
             send();
         }
 
-        function send () { // Generate message
-            const embed = new Discord.RichEmbed() // Create embed
+        function send () {
+            const embed = new Discord.RichEmbed()
                 .setColor(colors[color])
                 .setTitle(text)
                 .setAuthor(message.author.username, message.author.avatarURL)
                 .setTimestamp();
 
-            message.channel.send(embed); // Send embed
+            message.channel.send(embed);
         }
     },
 
-    'reactWrite': async (message, color, text, items, comItems, client, obj) => { // Create and send an embed
+    'reactWrite': async (message, color, text, items, comItems, client, obj) => {
         if (!obj) {
-            fs.readFile('./data.json', 'utf8', function readFileCallback (err, data) { // Read file
-                obj = JSON.parse(data); // Convert to list
+            fs.readFile('./data.json', 'utf8', function readFileCallback (err, data) {
+                obj = JSON.parse(data);
                 run();
             });
         } else {
@@ -268,12 +268,12 @@ const functions = {
         }
 
         function run() {
-            if (color != 'error') { // Overide if error
-                for (let a = 0; a < obj.users.length; a++) { // Loop through values
-                    if (obj.users[a].id == message.author.id) { // Check if id matches author
-                        if (obj.users[a].color != null) { // Check for color preferance
-                            colors.custom = obj.users[a].color; // Set custom color to user preference
-                            color = 'custom'; // Set color to custom
+            if (color != 'error') {
+                for (let a = 0; a < obj.users.length; a++) {
+                    if (obj.users[a].id == message.author.id) {
+                        if (obj.users[a].color != null) {
+                            colors.custom = obj.users[a].color;
+                            color = 'custom';
                         }
                     }
                 }
@@ -282,10 +282,10 @@ const functions = {
             send();
         }
 
-        async function send () { // Generate message
+        async function send () {
             let done = false;
 
-            const embed = new Discord.RichEmbed() // Create embed
+            const embed = new Discord.RichEmbed()
                 .setColor(colors[color])
                 .setTitle(text)
                 .setAuthor(message.author.username, message.author.avatarURL)
@@ -321,10 +321,10 @@ const functions = {
         }
     },
 
-    'waitWrite': async (message, color, text, client, obj) => { // Create and send an embed
+    'waitWrite': async (message, color, text, client, obj) => {
         if (!obj) {
-            fs.readFile('./data.json', 'utf8', function readFileCallback (err, data) { // Read file
-                obj = JSON.parse(data); // Convert to list
+            fs.readFile('./data.json', 'utf8', function readFileCallback (err, data) {
+                obj = JSON.parse(data);
                 run();
             });
         } else {
@@ -332,12 +332,12 @@ const functions = {
         }
 
         function run() {
-            if (color != 'error') { // Overide if error
-                for (let a = 0; a < obj.users.length; a++) { // Loop through values
-                    if (obj.users[a].id == message.author.id) { // Check if id matches author
-                        if (obj.users[a].color != null) { // Check for color preferance
-                            colors.custom = obj.users[a].color; // Set custom color to user preference
-                            color = 'custom'; // Set color to custom
+            if (color != 'error') {
+                for (let a = 0; a < obj.users.length; a++) {
+                    if (obj.users[a].id == message.author.id) {
+                        if (obj.users[a].color != null) {
+                            colors.custom = obj.users[a].color;
+                            color = 'custom';
                         }
                     }
                 }
@@ -346,10 +346,10 @@ const functions = {
             send();
         }
 
-        async function send () { // Generate message
+        async function send () {
             let done = false;
 
-            const embed = new Discord.RichEmbed() // Create embed
+            const embed = new Discord.RichEmbed()
                 .setColor(colors[color])
                 .setTitle(text)
                 .setAuthor(message.author.username, message.author.avatarURL)
@@ -368,12 +368,12 @@ const functions = {
         }
     },
 
-    'colorWrite': async (message, color, text, client, obj) => { // Create and send an embed
+    'colorWrite': async (message, color, text, client, obj) => {
         items = [{'name': 'Back', 'emoji': '⬅'}, {'name': 'Black', 'emoji': '⬛', 'value': '000000'}, {'name': 'White', 'emoji': '⚪', 'value': 'FFFFFF'}, {'name': 'Orange', 'emoji': '🔶', 'value': 'FFA500'}, {'name': 'Red', 'emoji': '♦', 'value': 'FF0000'}, {'name': 'Orange', 'emoji': '🔹', 'value': '1589FF'}];
 
         if (!obj) {
-            fs.readFile('./data.json', 'utf8', function readFileCallback (err, data) { // Read file
-                obj = JSON.parse(data); // Convert to list
+            fs.readFile('./data.json', 'utf8', function readFileCallback (err, data) {
+                obj = JSON.parse(data);
                 run();
             });
         } else {
@@ -381,12 +381,12 @@ const functions = {
         }
 
         function run() {
-            if (color != 'error') { // Overide if error
-                for (let a = 0; a < obj.users.length; a++) { // Loop through values
-                    if (obj.users[a].id == message.author.id) { // Check if id matches author
-                        if (obj.users[a].color != null) { // Check for color preferance
-                            colors.custom = obj.users[a].color; // Set custom color to user preference
-                            color = 'custom'; // Set color to custom
+            if (color != 'error') {
+                for (let a = 0; a < obj.users.length; a++) {
+                    if (obj.users[a].id == message.author.id) {
+                        if (obj.users[a].color != null) {
+                            colors.custom = obj.users[a].color;
+                            color = 'custom';
                         }
                     }
                 }
@@ -395,10 +395,10 @@ const functions = {
             send();
         }
 
-        async function send () { // Generate message
+        async function send () {
             let done = false;
 
-            const embed = new Discord.RichEmbed() // Create embed
+            const embed = new Discord.RichEmbed()
                 .setColor(colors[color])
                 .setTitle(text)
                 .setAuthor(message.author.username, message.author.avatarURL)
@@ -420,7 +420,7 @@ const functions = {
                         if (reaction.emoji.name === items[a].emoji && user.id == message.author.id && !done) {
                             if (items[a].name == 'Back') {
                                 message.content.pop();
-                            } else {
+                            } else if (items[a].name != 'Exit') {
                                 message.content.push(items[a].value.toLowerCase());
                             }
 
