@@ -105,7 +105,7 @@ exports.reactWrite = async (message, color, text, items, comItems, client, obj) 
                     if (reaction.emoji.name === items[a].emoji && user.id == message.author.id && !done) {
                         if (items[a].name == 'Back') {
                             message.content.pop();
-                        } else if (items[a].name != 'Exit'){
+                        } else if (items[a].name != 'Exit') {
                             message.content.push(items[a].name.toLowerCase());
                         }
                         
