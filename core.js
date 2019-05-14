@@ -147,7 +147,7 @@ exports.commandCheck = {
 
                                 if (items.length !== 0) {
                                     emojis = [{'name': 'Back', 'emoji': '⬅'}];
-                                    text = '⬅ **Back**\n`Go to previous page.`\n\n';
+                                    text = '⬅ **Back**\n\n';
                                 }
 
                                 for (let a = 0; a < subCommands.length; a++) {
@@ -157,7 +157,7 @@ exports.commandCheck = {
                                 }
 
                                 emojis.push({'name': 'Exit', 'emoji': '❌'});
-                                text += '❌ **Exit**\n`Cancel current command.`';
+                                text += '❌ **Exit**';
 
                                 functions.reactWrite(message, 'sucess', text, emojis, items, client);
                             }
