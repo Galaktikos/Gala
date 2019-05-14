@@ -1,4 +1,4 @@
-const functions = require("../../../../functions.js"), // Functions
+const gala = require("../../../../Gala.js"), // Gala core
     fs = require("fs"); // File system
 
 exports.run = function (message, color) {
@@ -11,11 +11,11 @@ exports.run = function (message, color) {
             if (obj.users[a].id == message.author.id && obj.users[a].color) { // Check if id matches author
                 obj.users[a].name = message.author.username; // Update name
                 delete obj.users[a].color;
-                functions.write(message, 'sucess', 'Your color has been reset.', obj);
+                gala.functions.write(message, 'sucess', 'Your color has been reset.', obj);
 
                 a = obj.users.length; // Stop loop
             } else if (a+1 == obj.users.length) {
-                functions.write(message, 'error', 'You already have the default colors!', obj);
+                gala.functions.write(message, 'error', 'You already have the default colors!', obj);
             }
         }
 
