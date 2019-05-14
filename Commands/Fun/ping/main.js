@@ -1,7 +1,7 @@
-const functions = require('../../../functions.js'); // Functions
+const gala = require('../../../Gala.js'); // Functions
 
 exports.run = function (message) { // Command
-  functions.write(message, 'sucess', 'Pong!'); // Send output
+    gala.functions.write(message, 'sucess', 'Pong!'); // Send output
 }
 
 exports.about = 'Pong!'; // About
