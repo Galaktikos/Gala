@@ -58,7 +58,7 @@ function message() {
 
 message();
 
-const commandCheck = {
+exports.commandCheck = {
     'run': function (message, client) {
         let done = false;
         
@@ -214,7 +214,7 @@ const commandCheck = {
     }
 };
 
-const functions = {
+exports.functions = {
     'botWrite': function (channel, color, text, client) {
         const embed = new Discord.RichEmbed()
             .setColor(colors[color])
