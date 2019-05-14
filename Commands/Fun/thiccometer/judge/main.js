@@ -1,4 +1,4 @@
-const functions = require('../../../../functions.js'), // Functions
+const gala = require('../../../../Gala.js'), // Gala core
     fs = require('fs'); // File system
 
 exports.run = function (message, client) { // Command
@@ -15,19 +15,19 @@ exports.run = function (message, client) { // Command
                     let val = Math.round(Math.random()*(obj.users[a].value/3+2)-(obj.users[a].value/6.5+1)); // Add or subtract randomly
                     obj.users[a].value += val; // Apply thiccness
                     obj.users[a].name = member.name; // Update name
-                    functions.write(message, 'sucess', 'You judge ' + member.username + "'s thiccness. They " + (val < 0 ? 'are hurt by your judgement and loose ' : 'value your judgement and gain ') + val + '% thiccness. ' + member.username + ' is now ' + obj.users[a].value + '% thicc!', obj); // Send output
+                    gala.functions.write(message, 'sucess', 'You judge ' + member.username + "'s thiccness. They " + (val < 0 ? 'are hurt by your judgement and loose ' : 'value your judgement and gain ') + val + '% thiccness. ' + member.username + ' is now ' + obj.users[a].value + '% thicc!', obj); // Send output
                     
                     a = obj.users.length;
                 } else {
                     obj.users[a].name = member.name; // Update name
                     obj.users[a].value = 0;
-                    functions.write(message, 'sucess', member.username + ' is ' + obj.users[a+1].value + '% thicc!', obj); // Send output
+                    gala.functions.write(message, 'sucess', member.username + ' is ' + obj.users[a+1].value + '% thicc!', obj); // Send output
 
                     a = obj.users.length;
                 }
             } else if (a + 1 == obj.users.length) {
                 obj.users.push({name: member.username, id: member.id, value: Math.round(Math.random() * 200)}); //Create random thiccness starting value
-                functions.write(message, 'sucess', member.username + ' is ' + obj.users[a + 1].value + '% thicc!', obj); // Send output
+                gala.functions.write(message, 'sucess', member.username + ' is ' + obj.users[a + 1].value + '% thicc!', obj); // Send output
 
                 a = obj.users.length;
             }
