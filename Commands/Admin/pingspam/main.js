@@ -24,7 +24,7 @@ exports.run = function (message, client) { // Command
     });
 }
 
-exports.about = "Judge you or other people's thiccness."; // About
+exports.about = 'Ping someone rapidly.'; // About
 
 exports.parameter = [{'type': 'mention', 'text': 'Reply by mentioning yourself or another user to spam.'}, {'type': 'number', 'text': 'Reply by typing the number of times you would like to ping the person. (Max: 100)'}]; // Parameter
 

@@ -4,7 +4,6 @@ client = new Discord.Client(), // Discord client
     settings = require('./settings.json'), // Settings
     logger = require('./logger.js'), // Logger
     readline = require('readline'), // Readline
-    activities = [`with ${client.users.size} people`, "Try \"" + settings.prefix + "\""]; // Activities
     commandCheck = require('./commandCheck'); // Command Check
 let activity = 0; // Acttivity count
 
@@ -14,6 +13,8 @@ client.on('ready', () => { // On ready
     functions.botWrite(general, 'neutral', 'Bot ready!', client) // Startup message
 
     setInterval(function() { // Activity loop
+        let activities = [`With ${client.users.size} people on ${client.guilds.size} servers.`, "Try \"" + settings.prefix + "\""]; // Activities
+
         if (activity >= activities.length) { // Check if activity value is greater than amount of activities
             activity = 0; // Reset activity count
         }
