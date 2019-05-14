@@ -35,7 +35,7 @@ client.on('message', (message) => {
     message.content = message.content.toLowerCase().split(' ');
 
     if (message.content[0] == settings.prefix) {
-        commandCheck.run(message, client);
+        exports.commandCheck.run(message, client);
         message.delete(0);
     }
 });
@@ -75,7 +75,7 @@ exports.commandCheck = {
                                         if(message.member.roles.some(r=>data.adminRoles.includes(r.name)) ) {
                                             check([items[a], items2[b]], 2);
                                         } else {
-                                            functions.write(message, 'error', 'You need the permission(s) `' + command.permissions().join(', ') + '` to use the command `' + message.content[1] + '.');
+                                            exports.functions.write(message, 'error', 'You need the permission(s) `' + command.permissions().join(', ') + '` to use the command `' + message.content[1] + '.');
                                         }
                                     } else {
                                         check([items[a], items2[b]], 2);
@@ -85,7 +85,7 @@ exports.commandCheck = {
                                     b = items2.length;
                                     done = true;
                                 } else if (a + 1 == items.length && b + 1 == items2.length && !done) {
-                                    functions.write(message, 'error', 'Command not found, please use `' + settings.prefix + '` for commands.');
+                                    exports.functions.write(message, 'error', 'Command not found, please use `' + settings.prefix + '` for commands.');
                                 }
                             }
                         });
@@ -137,7 +137,7 @@ exports.commandCheck = {
                                         check(items, num + 1);
                                         a = subCommands.length;
                                     } else if (a + 1 == subCommands.length) {
-                                        functions.write(message, 'error', 'Subcommand not found, please use `' + settings.prefix + ' ' + command.replace('./Commands/' + items[0] + '/', '').replace('/', ' ') + '` for commands.');
+                                        exports.functions.write(message, 'error', 'Subcommand not found, please use `' + settings.prefix + ' ' + command.replace('./Commands/' + items[0] + '/', '').replace('/', ' ') + '` for commands.');
                                         a = file.parameter.length;
                                     }
                                 }
@@ -159,7 +159,7 @@ exports.commandCheck = {
                                 emojis.push({'name': 'Exit', 'emoji': '❌'});
                                 text += '❌ **Exit**';
 
-                                functions.reactWrite(message, 'sucess', text, emojis, items, client);
+                                exports.functions.reactWrite(message, 'sucess', text, emojis, items, client);
                             }
                         });
                     } else if (file.parameter[b].type == 'hex') {
@@ -170,11 +170,11 @@ exports.commandCheck = {
                             if (re.test(message.content[num + b]) && message.content[num + b].length == 6) {
                                 file.run(message, client);
                             } else {
-                                functions.write(message, 'error', 'Invalid hex code.');
+                                exports.functions.write(message, 'error', 'Invalid hex code.');
                                 a = file.parameter.length;
                             }
                         } else {
-                            functions.colorWrite(message, 'sucess', file.parameter[b].text, client);
+                            exports.functions.colorWrite(message, 'sucess', file.parameter[b].text, client);
                         }
                     } else if (file.parameter[b].type == 'mention') {
                         if (message.content[num + b] && message.content[num + b] != '') {
@@ -195,17 +195,17 @@ exports.commandCheck = {
                                     file.run(message, client);
                                 }
                             } else {
-                                functions.write(message, 'error', 'Person not found.');
+                                exports.functions.write(message, 'error', 'Person not found.');
                                 b = file.parameter.length;
                             }
                         } else {
-                            functions.waitWrite(message, 'sucess', file.parameter[b].text, client);
+                            exports.functions.waitWrite(message, 'sucess', file.parameter[b].text, client);
                         }
                     } else if (file.parameter[b].type == 'number') {
                         if (message.content[num + b] && message.content[num + b] != '') {
 
                         } else {
-                            functions.waitWrite(message, 'sucess', file.parameter[b].text, client);
+                            exports.functions.waitWrite(message, 'sucess', file.parameter[b].text, client);
                         }
                     }
                 }
@@ -316,7 +316,7 @@ exports.functions = {
                                     message.content.push(items[a].name.toLowerCase());
                                 }
 
-                                commandCheck.run(message, client);
+                                exports.commandCheck.run(message, client);
                             }
                             
                             mes.delete();
@@ -367,7 +367,7 @@ exports.functions = {
                 await message.channel.awaitMessages(msg => {
                     if (msg.author.id == message.author.id && !done) {
                         message.content.push(msg.content[0]);
-                        commandCheck.run(message, client);
+                        exports.commandCheck.run(message, client);
                         mes.delete();
                         done = true;
                     }
@@ -433,7 +433,7 @@ exports.functions = {
                                     message.content.push(items[a].value.toLowerCase());
                                 }
 
-                                commandCheck.run(message, client);
+                                exports.commandCheck.run(message, client);
                             }
                             
                             mes.delete();
@@ -447,7 +447,7 @@ exports.functions = {
             await message.channel.awaitMessages(msg => {
                 if (msg.author.id == message.author.id && !done) {
                     message.content.push(msg.content[0]);
-                    commandCheck.run(message, client);
+                    exports.commandCheck.run(message, client);
                     done = true;
                 }
             }, {time: 120000});
