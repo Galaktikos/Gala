@@ -10,8 +10,7 @@ const Discord = require('discord.js'),
         'custom': 0
     };
 
-let activities = [`with ${client.users.size} users on ${client.guilds.size} servers.`, "Try \"" + settings.prefix + "\""],
-    activity = 0;
+let activity = 0;
 
 client.on('ready', () => {
     const general = client.channels.find(channel => channel.name === "general");
@@ -19,6 +18,8 @@ client.on('ready', () => {
     functions.botWrite(general, 'neutral', 'Bot ready!', client)
 
     setInterval(function() {
+        let activities = [`with ${client.users.size} users on ${client.guilds.size} servers.`, "Try \"" + settings.prefix + "\""];
+        
         if (activity >= activities.length) {
             activity = 0;
         }
@@ -461,6 +462,5 @@ const logger = {
         console.log(d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear() + ' ' + message.author.username + ': ' + message.content);
     }
 };
-
 
 client.login(process.env.BOT_TOKEN);

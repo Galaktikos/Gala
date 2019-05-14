@@ -64,90 +64,88 @@ exports.run = function (message, client) { // Command
         if (!file.parameter) {
             file.run(message, client); // Run command
         } else {
-            for (let b = 0; b < file.parameter.length; b++) {
-                if (file.parameter[b].type == 'command') {
-                    fs.readdir(command, function(err, subCommands) {
-                        if(err) console.log('error', err); // Log error
-                        
-                        subCommands = subCommands.filter(function(ele){return ele != 'main.js'});
-
-                        if (message.content[num + b] && message.content[num + b] != '') {                
-                            for (let a = 0; a < subCommands.length; a++) {
-                                if (subCommands[a] == message.content[num  + b]) {
-                                    items.push(subCommands[a]);
-                                    check(items, num + 1);
-                                    a = subCommands.length;
-                                } else if (a + 1 == subCommands.length) {
-                                    functions.write(message, 'error', 'Subcommand not found, please use `' + settings.prefix + ' ' + command.replace('./Commands/' + items[0] + '/', '').replace('/', ' ') + '` for commands.'); // Send error message
-                                    a = file.parameter.length;
-                                }
-                            }
-                        } else {
-                            let emojis = [];
-                            let text = '';
-
-                            if (items.length !== 0) {
-                                emojis = [{'name': 'Back', 'emoji': '⬅'}];
-                                text = '⬅ **Back**\n`Go to previous page.`\n\n';
-                            }
-
-                            for (let a = 0; a < subCommands.length; a++) {
-                                const file = require(command + '/' + subCommands[a] + '/main.js');
-                                emojis.push({'name': subCommands[a], 'emoji': file.emoji});
-                                text += file.emoji + ' **' + subCommands[a] + '**\n`' + file.about + '`\n\n';
-                            }
-                            
-                            emojis.push({'name': 'Exit', 'emoji': '❌'});
-                            text += '❌ **Exit**\n`Cancel current command.`';
-
-                            functions.reactWrite(message, 'sucess', text, emojis, items, client);
-                        }
-                    });
-                } else if (file.parameter[b].type == 'hex') {
-                    if (message.content[num + b] && message.content[num + b] != '') {
-                        const re = /[0-9A-Fa-f]{6}/g; // Test String
-                        message.content[num + b] = message.content[num + b].replace('#', ''); // Take off #
-
-                        if (re.test(message.content[num + b]) && message.content[num + b].length == 6) { // Check if valid hex
-                            file.run(message, client); // Run command
-                        } else {
-                            functions.write(message, 'error', 'Invalid hex code.'); // Write error
-                            a = file.parameter.length;
-                        }
-                    } else {
-                        functions.colorWrite(message, 'sucess', file.parameter[b].text, client);
-                    }
-                } else if (file.parameter[b].type == 'mention') {
-                    if (message.content[num + b] && message.content[num + b] != '') {
-                        if (message.content[num + b].startsWith('<@') && message.content[num + b].endsWith('>')) {
-                            message.content[num + b] = message.content[num + b].slice(2, -1);
+            if (file.parameter[b].type == 'command') {
+                fs.readdir(command, function(err, subCommands) {
+                    if(err) console.log('error', err); // Log error
                     
-                            if (message.content[num + b].startsWith('!')) {
-                                message.content[num + b] = message.content[num + b].slice(1);
-                            }
-                        } else {
-                            
-                        }
+                    subCommands = subCommands.filter(function(ele){return ele != 'main.js'});
 
-                        const member = client.users.get(message.content[num + b]);
-
-                        if (member !== undefined) { // Check if mention exists
-                            if (b + 1 == file.parameter.length) {
-                                file.run(message, client); // Run command
+                    if (message.content[num + b] && message.content[num + b] != '') {                
+                        for (let a = 0; a < subCommands.length; a++) {
+                            if (subCommands[a] == message.content[num  + b]) {
+                                items.push(subCommands[a]);
+                                check(items, num + 1);
+                                a = subCommands.length;
+                            } else if (a + 1 == subCommands.length) {
+                                functions.write(message, 'error', 'Subcommand not found, please use `' + settings.prefix + ' ' + command.replace('./Commands/' + items[0] + '/', '').replace('/', ' ') + '` for commands.'); // Send error message
+                                a = file.parameter.length;
                             }
-                        } else {
-                            functions.write(message, 'error', 'Person not found.'); // Write error
-                            b = file.parameter.length;
                         }
                     } else {
-                        functions.waitWrite(message, 'sucess', file.parameter[b].text, client);
-                    }
-                } else if (file.parameter[b].type == 'number') {
-                    if (message.content[num + b] && message.content[num + b] != '') {
+                        let emojis = [];
+                        let text = '';
+
+                        if (items.length !== 0) {
+                            emojis = [{'name': 'Back', 'emoji': '⬅'}];
+                            text = '⬅ **Back**\n`Go to previous page.`\n\n';
+                        }
+
+                        for (let a = 0; a < subCommands.length; a++) {
+                            const file = require(command + '/' + subCommands[a] + '/main.js');
+                            emojis.push({'name': subCommands[a], 'emoji': file.emoji});
+                            text += file.emoji + ' **' + subCommands[a] + '**\n`' + file.about + '`\n\n';
+                        }
                         
-                    } else {
-                        functions.waitWrite(message, 'sucess', file.parameter[b].text, client);
+                        emojis.push({'name': 'Exit', 'emoji': '❌'});
+                        text += '❌ **Exit**\n`Cancel current command.`';
+
+                        functions.reactWrite(message, 'sucess', text, emojis, items, client);
                     }
+                });
+            } else if (file.parameter[b].type == 'hex') {
+                if (message.content[num + b] && message.content[num + b] != '') {
+                    const re = /[0-9A-Fa-f]{6}/g; // Test String
+                    message.content[num + b] = message.content[num + b].replace('#', ''); // Take off #
+
+                    if (re.test(message.content[num + b]) && message.content[num + b].length == 6) { // Check if valid hex
+                        file.run(message, client); // Run command
+                    } else {
+                        functions.write(message, 'error', 'Invalid hex code.'); // Write error
+                        a = file.parameter.length;
+                    }
+                } else {
+                    functions.colorWrite(message, 'sucess', file.parameter[b].text, client);
+                }
+            } else if (file.parameter[b].type == 'mention') {
+                if (message.content[num + b] && message.content[num + b] != '') {
+                    if (message.content[num + b].startsWith('<@') && message.content[num + b].endsWith('>')) {
+                        message.content[num + b] = message.content[num + b].slice(2, -1);
+                
+                        if (message.content[num + b].startsWith('!')) {
+                            message.content[num + b] = message.content[num + b].slice(1);
+                        }
+                    } else {
+                        
+                    }
+
+                    const member = client.users.get(message.content[num + b]);
+
+                    if (member !== undefined) { // Check if mention exists
+                        if (b + 1 == file.parameter.length) {
+                            file.run(message, client); // Run command
+                        }
+                    } else {
+                        functions.write(message, 'error', 'Person not found.'); // Write error
+                        b = file.parameter.length;
+                    }
+                } else {
+                    functions.waitWrite(message, 'sucess', file.parameter[b].text, client);
+                }
+            } else if (file.parameter[b].type == 'number') {
+                if (message.content[num + b] && message.content[num + b] != '') {
+                    
+                } else {
+                    functions.waitWrite(message, 'sucess', file.parameter[b].text, client);
                 }
             }
         }
