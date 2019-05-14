@@ -1,4 +1,4 @@
-const functions = require('../../../functions.js'), // Functions
+const gala = require('../../../Gala.js'), // Gala core
     fs = require('fs'); // File system
 
 exports.run = function (message, client) { // Command
@@ -10,7 +10,7 @@ exports.run = function (message, client) { // Command
         const member = client.users.get(message.content[2]); // Get first mention
 
         if (message.content[3] > 100) {
-            functions.write(message, 'error', 'You cannot ping a person more than 100 times.');
+            gala.functions.write(message, 'error', 'You cannot ping a person more than 100 times.');
         } else {
             for (let a = 0; a < message.content[3]; a++) {
                 message.channel.send(member).then(msg => msg.delete());
