@@ -1,4 +1,4 @@
-const functions = require('../../../functions.js'), // Functions
+const gala = require('../../../Gala.js'), // Functions
     fs = require('fs'); // File system
 
 exports.run = function (message, client) { // Command
