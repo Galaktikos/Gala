@@ -15,7 +15,7 @@ let activity = 0;
 client.on('ready', () => {
     const general = client.channels.find(channel => channel.name === "general");
 
-    functions.botWrite(general, 'neutral', 'Bot ready!', client)
+    console.log(general, 'neutral', 'Bot ready!', client)
 
     setInterval(function() {
         let activities = [`with ${client.users.size} users on ${client.guilds.size} servers.`, "Try \"" + settings.prefix + "\""];
