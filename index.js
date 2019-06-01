@@ -1,5 +1,6 @@
 const Discord = require('discord.js'), // Discord import
-client = new Discord.Client(), // Discord client
+    client = new Discord.Client(), // Discord client
+    fs = require('fs');
     functions = require('./functions.js'), // Functions
     settings = require('./settings.json'), // Settings
     logger = require('./logger.js'), // Logger
@@ -32,6 +33,19 @@ client.on('message', (message) => { // On message
         commandCheck.run(message, client);
         message.delete(0);
     }
+
+    fs.readFile('./logs.json', 'utf8', function readFileCallback (err, data) { // Read file
+        if(err) console.log('error', err); // Log error
+
+        let object = JSON.parse(data); // Convert to list
+        
+        object.message.push(message);
+
+        json = JSON.stringify(object); // Convert to json
+        fs.writeFile('./logs.json', json, 'utf8', function(err, result) { // Write to json
+            if(err) console.log('error', err); // Log error
+        });
+    });
 });
 
 function message() {
