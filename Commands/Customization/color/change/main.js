@@ -1,4 +1,4 @@
-const functions = require('../../../../functions.js'), // Functions
+const gala = require('../../../../Gala.js'), // Gala core
     fs = require('fs'); // File system
 
 exports.run = function (message) {
@@ -11,12 +11,12 @@ exports.run = function (message) {
             if (obj.users[a].id == message.author.id) { // Check if id matches author
                 obj.users[a].name = message.author.username; // Update name
                 obj.users[a].color = parseInt(message.content[3], 16); // Set color value
-                functions.write(message, 'sucess', 'Your color is now set to ' + parseInt(message.content[3], 16), obj);
+                gala.functions.write(message, 'sucess', 'Your color is now set to ' + parseInt(message.content[3], 16), obj);
 
                 a = obj.users.length;
             } else if (a+1 == obj.users.length) { // Check for last loop
                 obj.users.push({name: message.author.username, id: message.author.id, color: parseInt(message.content[3], 16)}); // Create new user
-                functions.write(message, 'sucess', 'Your color is now set to ' + parseInt(message.content[3], 16), obj);
+                gala.functions.write(message, 'sucess', 'Your color is now set to ' + parseInt(message.content[3], 16), obj);
                 
                 a = obj.users.length;
             }

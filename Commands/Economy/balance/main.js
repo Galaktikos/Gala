@@ -1,4 +1,4 @@
-const functions = require('../../../functions.js'), // Functions
+const gala = require('../../../Gala.js'), // Functions
     fs = require('fs'); // File system
 
 exports.run = function (message, client) { // Command
@@ -13,19 +13,19 @@ exports.run = function (message, client) { // Command
             if (obj.users[a].id == member.id) {
                 if (obj.users[a].money) {
                     obj.users[a].name = member.name; // Update name
-                    functions.write(message, 'sucess', member.username + ' has $' + obj.users[a].money + '.', obj); // Send output
+                    gala.functions.write(message, 'sucess', member.username + ' has $' + obj.users[a].money + '.', obj); // Send output
 
                     a = obj.users.length;
                 } else {
                     obj.users[a].name = member.name; // Update name
                     obj.users[a].money = 0;
-                    functions.write(message, 'sucess', member.username + ' has $' + obj.users[a].money + '.', obj); // Send output
+                    gala.functions.write(message, 'sucess', member.username + ' has $' + obj.users[a].money + '.', obj); // Send output
 
                     a = obj.users.length;
                 }
             } else if (a + 1 == obj.users.length) {
                 obj.users.push({name: member.username, id: member.id, money: 0}); //Create random thiccness starting value
-                functions.write(message, 'sucess', member.username + ' has $' + obj.users[a + 1].money + '.', obj); // Send output
+                gala.functions.write(message, 'sucess', member.username + ' has $' + obj.users[a + 1].money + '.', obj); // Send output
                 
                 a = obj.users.length;
             }
